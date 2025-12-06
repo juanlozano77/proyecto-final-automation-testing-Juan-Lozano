@@ -21,10 +21,11 @@ Este proyecto implementa un framework completo de automatización que integra:
 sauce-automation/
 ├── pages/ (POM)
 ├── tests/
-│   ├── ui/
-│   └── api/
+│ ├── ui/
+│ └── api/
 ├── utils/
-├── resources/test_data/
+├── resources/
+│ └── test_data/
 ├── screenshots/
 ├── logs/
 ├── reports/
