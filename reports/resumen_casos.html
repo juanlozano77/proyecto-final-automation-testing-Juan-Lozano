@@ -1,0 +1,46 @@
+<html>
+<head>
+<meta charset='utf-8'>
+<title>Resumen de Casos de Prueba</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 20px; }
+h1 { margin-bottom: 10px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { border: 1px solid #ccc; padding: 6px 8px; text-align: left; vertical-align: top; }
+th { background-color: #f5f5f5; }
+.passed { background-color: #d4edda; }
+.failed { background-color: #f8d7da; }
+.skipped { background-color: #fff3cd; }
+.status { font-weight: bold; }
+</style>
+</head>
+<body>
+<h1>Resumen de Casos de Prueba</h1>
+<p>Este resumen muestra, para cada caso de prueba, el módulo, el nombre, el estado, la duración y, cuando aplica, el resultado esperado y el resultado obtenido.</p>
+<table>
+<tr>
+<th>Módulo</th>
+<th>Nombre del test</th>
+<th>Estado</th>
+<th>Duración (s)</th>
+<th>Resultado esperado</th>
+<th>Resultado obtenido</th>
+</tr>
+<tr class='passed'><td>tests.api.test_api_with_faker</td><td>test_create_post_with_faker</td><td class='status'>PASSED</td><td>0.291</td><td>El sistema se comportó según lo esperado.</td><td>Resultado conforme (sin desvíos detectados).</td></tr>
+<tr class='passed'><td>tests.api.test_reqres_api</td><td>test_get_post</td><td class='status'>PASSED</td><td>0.163</td><td>El sistema se comportó según lo esperado.</td><td>Resultado conforme (sin desvíos detectados).</td></tr>
+<tr class='passed'><td>tests.api.test_reqres_api</td><td>test_create_post</td><td class='status'>PASSED</td><td>0.283</td><td>El sistema se comportó según lo esperado.</td><td>Resultado conforme (sin desvíos detectados).</td></tr>
+<tr class='passed'><td>tests.api.test_reqres_api</td><td>test_delete_post</td><td class='status'>PASSED</td><td>0.292</td><td>El sistema se comportó según lo esperado.</td><td>Resultado conforme (sin desvíos detectados).</td></tr>
+<tr class='passed'><td>tests.ui.test_checkout_flow</td><td>test_complete_checkout_flow</td><td class='status'>PASSED</td><td>13.052</td><td>El sistema se comportó según lo esperado.</td><td>Resultado conforme (sin desvíos detectados).</td></tr>
+<tr class='passed'><td>tests.ui.test_checkout_negative</td><td>test_checkout_missing_first_name</td><td class='status'>PASSED</td><td>9.424</td><td>El sistema se comportó según lo esperado.</td><td>Resultado conforme (sin desvíos detectados).</td></tr>
+<tr class='failed'><td>tests.ui.test_demo_failure</td><td>test_demo_ui_intentional_failure</td><td class='status'>FAILED</td><td>9.641</td><td>Esperado (ver detalle en mensaje de error)</td><td>Obtenido (ver detalle en mensaje de error)</td></tr>
+<tr class='passed'><td>tests.ui.test_inventory</td><td>test_add_product_to_cart</td><td class='status'>PASSED</td><td>19.575</td><td>El sistema se comportó según lo esperado.</td><td>Resultado conforme (sin desvíos detectados).</td></tr>
+<tr class='passed'><td>tests.ui.test_inventory</td><td>test_sort_products_high_to_low</td><td class='status'>PASSED</td><td>9.374</td><td>El sistema se comportó según lo esperado.</td><td>Resultado conforme (sin desvíos detectados).</td></tr>
+<tr class='passed'><td>tests.ui.test_login</td><td>test_login_success[standard_user]</td><td class='status'>PASSED</td><td>10.055</td><td>El sistema se comportó según lo esperado.</td><td>Resultado conforme (sin desvíos detectados).</td></tr>
+<tr class='passed'><td>tests.ui.test_login</td><td>test_login_success[problem_user]</td><td class='status'>PASSED</td><td>9.813</td><td>El sistema se comportó según lo esperado.</td><td>Resultado conforme (sin desvíos detectados).</td></tr>
+<tr class='passed'><td>tests.ui.test_login</td><td>test_login_invalid_credentials[empty_user]</td><td class='status'>PASSED</td><td>10.262</td><td>El sistema se comportó según lo esperado.</td><td>Resultado conforme (sin desvíos detectados).</td></tr>
+<tr class='passed'><td>tests.ui.test_login</td><td>test_login_invalid_credentials[empty_password]</td><td class='status'>PASSED</td><td>8.947</td><td>El sistema se comportó según lo esperado.</td><td>Resultado conforme (sin desvíos detectados).</td></tr>
+<tr class='passed'><td>tests.ui.test_login</td><td>test_login_invalid_credentials[locked_out]</td><td class='status'>PASSED</td><td>9.449</td><td>El sistema se comportó según lo esperado.</td><td>Resultado conforme (sin desvíos detectados).</td></tr>
+<tr class='passed'><td>tests.ui.test_login</td><td>test_login_invalid_credentials[wrong_password]</td><td class='status'>PASSED</td><td>11.181</td><td>El sistema se comportó según lo esperado.</td><td>Resultado conforme (sin desvíos detectados).</td></tr>
+</table>
+</body>
+</html>

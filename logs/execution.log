@@ -1,0 +1,493 @@
+2025-12-05 14:01:06,047 - test_reqres_api - INFO - GET https://reqres.in/api/users/2 -> 403
+2025-12-05 14:01:07,910 - test_reqres_api - INFO - POST https://reqres.in/api/users payload={'name': 'Juan', 'job': 'QA Engineer'} -> 403
+2025-12-05 14:01:08,054 - test_reqres_api - INFO - DELETE https://reqres.in/api/users/2 -> 403
+2025-12-05 14:01:08,149 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:01:26,757 - test_checkout_flow - INFO - Mensaje de éxito en checkout: Thank you for your order!
+2025-12-05 14:01:26,760 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:01:31,299 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:01:48,168 - test_inventory - INFO - Carrito pasó de 0 a 1
+2025-12-05 14:01:48,172 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:01:52,670 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:01:59,805 - test_inventory - INFO - Precios obtenidos: [49.99, 29.99, 15.99, 15.99, 9.99, 7.99]
+2025-12-05 14:01:59,808 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:02:04,259 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:02:09,172 - test_login - INFO - Probando login exitoso con usuario: standard_user
+2025-12-05 14:02:11,117 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:02:15,719 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:02:21,546 - test_login - INFO - Probando login exitoso con usuario: problem_user
+2025-12-05 14:02:23,350 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:02:27,897 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:02:32,360 - test_login - INFO - Probando login inválido: username='', password='secret_sauce', esperando error que contenga: 'Username is required'
+2025-12-05 14:02:34,057 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:02:38,715 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:02:43,591 - test_login - INFO - Probando login inválido: username='standard_user', password='', esperando error que contenga: 'Password is required'
+2025-12-05 14:02:45,408 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:02:49,940 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:02:54,694 - test_login - INFO - Probando login inválido: username='locked_out_user', password='secret_sauce', esperando error que contenga: 'Sorry'
+2025-12-05 14:02:56,339 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:03:00,828 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:03:05,543 - test_login - INFO - Probando login inválido: username='standard_user', password='wrong', esperando error que contenga: 'Username and password do not match'
+2025-12-05 14:03:07,085 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:10:26,526 - test_reqres_api - INFO - GET https://jsonplaceholder.typicode.com/posts/1 -> 200
+2025-12-05 14:10:26,801 - test_reqres_api - INFO - POST https://jsonplaceholder.typicode.com/posts -> 201
+2025-12-05 14:10:27,102 - test_reqres_api - INFO - DELETE https://jsonplaceholder.typicode.com/posts/1 -> 200
+2025-12-05 14:10:27,122 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:10:39,780 - test_checkout_flow - INFO - Mensaje de éxito en checkout: Thank you for your order!
+2025-12-05 14:10:39,790 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:10:44,065 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:11:00,883 - test_inventory - INFO - Carrito pasó de 0 a 1
+2025-12-05 14:11:00,883 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:11:05,209 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:11:13,278 - test_inventory - INFO - Precios obtenidos: [49.99, 29.99, 15.99, 15.99, 9.99, 7.99]
+2025-12-05 14:11:13,281 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:11:17,468 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:11:22,154 - test_login - INFO - Probando login exitoso con usuario: standard_user
+2025-12-05 14:11:24,088 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:11:28,348 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:11:32,992 - test_login - INFO - Probando login exitoso con usuario: problem_user
+2025-12-05 14:11:35,047 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:11:39,518 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:11:45,454 - test_login - INFO - Probando login inválido: username='', password='secret_sauce', esperando error que contenga: 'Username is required'
+2025-12-05 14:11:47,541 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:11:51,986 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:11:58,313 - test_login - INFO - Probando login inválido: username='standard_user', password='', esperando error que contenga: 'Password is required'
+2025-12-05 14:12:00,769 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:12:05,157 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:12:11,212 - test_login - INFO - Probando login inválido: username='locked_out_user', password='secret_sauce', esperando error que contenga: 'Sorry'
+2025-12-05 14:12:13,324 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:12:17,599 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:12:22,216 - test_login - INFO - Probando login inválido: username='standard_user', password='wrong', esperando error que contenga: 'Username and password do not match'
+2025-12-05 14:12:24,752 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:42:49,852 - test_reqres_api - INFO - GET https://jsonplaceholder.typicode.com/posts/1 -> 200
+2025-12-05 14:42:50,125 - test_reqres_api - INFO - POST https://jsonplaceholder.typicode.com/posts -> 201
+2025-12-05 14:42:50,674 - test_reqres_api - INFO - DELETE https://jsonplaceholder.typicode.com/posts/1 -> 200
+2025-12-05 14:42:50,690 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:43:04,180 - test_checkout_flow - INFO - Mensaje de éxito en checkout: Thank you for your order!
+2025-12-05 14:43:04,328 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_complete_checkout_flow_passed_20251205_144304.png
+2025-12-05 14:43:04,333 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:43:08,745 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:43:30,095 - test_inventory - INFO - Carrito pasó de 0 a 1
+2025-12-05 14:43:30,463 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_add_product_to_cart_passed_20251205_144330.png
+2025-12-05 14:43:30,463 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:43:34,911 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:43:41,343 - test_inventory - INFO - Precios obtenidos: [49.99, 29.99, 15.99, 15.99, 9.99, 7.99]
+2025-12-05 14:43:41,536 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_sort_products_high_to_low_passed_20251205_144341.png
+2025-12-05 14:43:41,538 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:43:46,766 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:43:53,588 - test_login - INFO - Probando login exitoso con usuario: standard_user
+2025-12-05 14:43:55,902 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_success[standard_user]_passed_20251205_144355.png
+2025-12-05 14:43:55,909 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:44:00,269 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:44:06,306 - test_login - INFO - Probando login exitoso con usuario: problem_user
+2025-12-05 14:44:08,425 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_success[problem_user]_passed_20251205_144408.png
+2025-12-05 14:44:08,429 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:44:12,794 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:44:18,182 - test_login - INFO - Probando login inválido: username='', password='secret_sauce', esperando error que contenga: 'Username is required'
+2025-12-05 14:44:20,275 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[empty_user]_passed_20251205_144420.png
+2025-12-05 14:44:20,278 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:44:24,552 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:44:29,114 - test_login - INFO - Probando login inválido: username='standard_user', password='', esperando error que contenga: 'Password is required'
+2025-12-05 14:44:31,369 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[empty_password]_passed_20251205_144431.png
+2025-12-05 14:44:31,373 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:44:35,961 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:44:41,222 - test_login - INFO - Probando login inválido: username='locked_out_user', password='secret_sauce', esperando error que contenga: 'Sorry'
+2025-12-05 14:44:43,245 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[locked_out]_passed_20251205_144443.png
+2025-12-05 14:44:43,245 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:44:47,605 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:44:54,275 - test_login - INFO - Probando login inválido: username='standard_user', password='wrong', esperando error que contenga: 'Username and password do not match'
+2025-12-05 14:44:56,135 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[wrong_password]_passed_20251205_144455.png
+2025-12-05 14:44:56,139 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:50:15,603 - test_reqres_api - INFO - GET https://jsonplaceholder.typicode.com/posts/1 -> 200
+2025-12-05 14:50:15,902 - test_reqres_api - INFO - POST https://jsonplaceholder.typicode.com/posts -> 201
+2025-12-05 14:50:16,436 - test_reqres_api - INFO - DELETE https://jsonplaceholder.typicode.com/posts/1 -> 200
+2025-12-05 14:50:16,569 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:50:28,716 - test_checkout_flow - INFO - Mensaje de éxito en checkout: Thank you for your order!
+2025-12-05 14:50:28,844 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_complete_checkout_flow_passed_20251205_145028.png
+2025-12-05 14:50:28,849 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:50:33,115 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:50:51,507 - test_inventory - INFO - Carrito pasó de 0 a 1
+2025-12-05 14:50:51,759 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_add_product_to_cart_passed_20251205_145051.png
+2025-12-05 14:50:51,759 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:50:57,173 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:51:05,682 - test_inventory - INFO - Precios obtenidos: [49.99, 29.99, 15.99, 15.99, 9.99, 7.99]
+2025-12-05 14:51:05,935 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_sort_products_high_to_low_passed_20251205_145105.png
+2025-12-05 14:51:05,938 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:51:10,341 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:51:16,314 - test_login - INFO - Probando login exitoso con usuario: standard_user
+2025-12-05 14:51:18,487 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_success[standard_user]_passed_20251205_145118.png
+2025-12-05 14:51:18,491 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:51:22,789 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:51:27,967 - test_login - INFO - Probando login exitoso con usuario: problem_user
+2025-12-05 14:51:30,529 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_success[problem_user]_passed_20251205_145130.png
+2025-12-05 14:51:30,531 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:51:34,801 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:51:39,511 - test_login - INFO - Probando login inválido: username='', password='secret_sauce', esperando error que contenga: 'Username is required'
+2025-12-05 14:51:42,832 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[empty_user]_passed_20251205_145142.png
+2025-12-05 14:51:42,832 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:51:47,119 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:51:52,930 - test_login - INFO - Probando login inválido: username='standard_user', password='', esperando error que contenga: 'Password is required'
+2025-12-05 14:51:55,440 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[empty_password]_passed_20251205_145155.png
+2025-12-05 14:51:55,445 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:51:59,854 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:52:05,236 - test_login - INFO - Probando login inválido: username='locked_out_user', password='secret_sauce', esperando error que contenga: 'Sorry'
+2025-12-05 14:52:08,286 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[locked_out]_passed_20251205_145208.png
+2025-12-05 14:52:08,289 - conftest - INFO - Cerrando WebDriver
+2025-12-05 14:52:13,618 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 14:52:21,824 - test_login - INFO - Probando login inválido: username='standard_user', password='wrong', esperando error que contenga: 'Username and password do not match'
+2025-12-05 14:52:24,174 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[wrong_password]_passed_20251205_145224.png
+2025-12-05 14:52:24,177 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:20:53,849 - test_reqres_api - INFO - GET https://jsonplaceholder.typicode.com/posts/1 -> 200
+2025-12-05 15:20:54,133 - test_reqres_api - INFO - POST https://jsonplaceholder.typicode.com/posts -> 201
+2025-12-05 15:20:54,405 - test_reqres_api - INFO - DELETE https://jsonplaceholder.typicode.com/posts/1 -> 200
+2025-12-05 15:20:54,425 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:21:07,391 - test_checkout_flow - INFO - Mensaje de éxito en checkout: Thank you for your order!
+2025-12-05 15:21:07,653 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_complete_checkout_flow_passed_20251205_152107.png
+2025-12-05 15:21:07,653 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:21:13,280 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:21:32,833 - test_inventory - INFO - Carrito pasó de 0 a 1
+2025-12-05 15:21:33,128 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_add_product_to_cart_passed_20251205_152132.png
+2025-12-05 15:21:33,133 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:21:37,456 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:21:45,907 - test_inventory - INFO - Precios obtenidos: [49.99, 29.99, 15.99, 15.99, 9.99, 7.99]
+2025-12-05 15:21:46,113 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_sort_products_high_to_low_passed_20251205_152145.png
+2025-12-05 15:21:46,116 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:21:50,469 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:21:56,020 - test_login - INFO - [LOGIN OK] Usuario: standard_user
+2025-12-05 15:21:58,170 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_success[standard_user]_passed_20251205_152157.png
+2025-12-05 15:21:58,175 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:22:02,462 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:22:07,580 - test_login - INFO - [LOGIN OK] Usuario: problem_user
+2025-12-05 15:22:10,019 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_success[problem_user]_passed_20251205_152209.png
+2025-12-05 15:22:10,022 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:22:14,296 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:22:18,939 - test_login - INFO - [LOGIN NOK] Escenario: Usuario vacío | username='' password='secret_sauce' | Esperado error que contenga: 'Username is required'
+2025-12-05 15:22:21,107 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Username is required'
+2025-12-05 15:22:21,258 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[empty_user]_passed_20251205_152221.png
+2025-12-05 15:22:21,265 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:22:25,916 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:22:31,883 - test_login - INFO - [LOGIN NOK] Escenario: Password vacía | username='standard_user' password='' | Esperado error que contenga: 'Password is required'
+2025-12-05 15:22:33,597 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Password is required'
+2025-12-05 15:22:33,736 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[empty_password]_passed_20251205_152233.png
+2025-12-05 15:22:33,740 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:22:38,137 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:22:43,170 - test_login - INFO - [LOGIN NOK] Escenario: Usuario bloqueado | username='locked_out_user' password='secret_sauce' | Esperado error que contenga: 'Sorry'
+2025-12-05 15:22:44,893 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Sorry, this user has been locked out.'
+2025-12-05 15:22:45,028 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[locked_out]_passed_20251205_152244.png
+2025-12-05 15:22:45,028 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:22:49,347 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:22:54,480 - test_login - INFO - [LOGIN NOK] Escenario: Password incorrecta | username='standard_user' password='wrong' | Esperado error que contenga: 'Username and password do not match'
+2025-12-05 15:22:56,231 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Username and password do not match any user in this service'
+2025-12-05 15:22:56,413 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[wrong_password]_passed_20251205_152256.png
+2025-12-05 15:22:56,416 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:47:05,968 - test_reqres_api - INFO - GET https://jsonplaceholder.typicode.com/posts/1 -> 200
+2025-12-05 15:47:06,267 - test_reqres_api - INFO - POST https://jsonplaceholder.typicode.com/posts -> 201
+2025-12-05 15:47:06,539 - test_reqres_api - INFO - DELETE https://jsonplaceholder.typicode.com/posts/1 -> 200
+2025-12-05 15:47:06,549 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:47:21,146 - test_checkout_flow - INFO - Mensaje de éxito en checkout: Thank you for your order!
+2025-12-05 15:47:21,149 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:47:25,419 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:47:33,744 - test_checkout_negative - INFO - Mensaje de error mostrado: Error: First Name is required
+2025-12-05 15:47:33,748 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:47:38,000 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:47:56,195 - test_inventory - INFO - Carrito pasó de 0 a 1
+2025-12-05 15:47:56,198 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:48:00,680 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:48:07,382 - test_inventory - INFO - Precios obtenidos: [49.99, 29.99, 15.99, 15.99, 9.99, 7.99]
+2025-12-05 15:48:07,385 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:48:11,682 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:48:16,382 - test_login - INFO - [LOGIN OK] Usuario: standard_user
+2025-12-05 15:48:18,054 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:48:22,340 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:48:26,635 - test_login - INFO - [LOGIN OK] Usuario: problem_user
+2025-12-05 15:48:28,302 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:48:32,573 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:48:37,379 - test_login - INFO - [LOGIN NOK] Escenario: Usuario vacío | username='' password='secret_sauce' | Esperado error que contenga: 'Username is required'
+2025-12-05 15:48:38,847 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Username is required'
+2025-12-05 15:48:38,847 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:48:43,286 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:48:47,853 - test_login - INFO - [LOGIN NOK] Escenario: Password vacía | username='standard_user' password='' | Esperado error que contenga: 'Password is required'
+2025-12-05 15:48:49,309 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Password is required'
+2025-12-05 15:48:49,309 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:48:53,587 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:48:58,013 - test_login - INFO - [LOGIN NOK] Escenario: Usuario bloqueado | username='locked_out_user' password='secret_sauce' | Esperado error que contenga: 'Sorry'
+2025-12-05 15:48:59,560 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Sorry, this user has been locked out.'
+2025-12-05 15:48:59,570 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:49:03,875 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:49:08,125 - test_login - INFO - [LOGIN NOK] Escenario: Password incorrecta | username='standard_user' password='wrong' | Esperado error que contenga: 'Username and password do not match'
+2025-12-05 15:49:09,810 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Username and password do not match any user in this service'
+2025-12-05 15:49:09,810 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:50:27,748 - test_reqres_api - INFO - GET https://jsonplaceholder.typicode.com/posts/1 -> 200
+2025-12-05 15:50:27,990 - test_reqres_api - INFO - POST https://jsonplaceholder.typicode.com/posts -> 201
+2025-12-05 15:50:28,271 - test_reqres_api - INFO - DELETE https://jsonplaceholder.typicode.com/posts/1 -> 200
+2025-12-05 15:50:28,281 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:50:36,824 - test_checkout_flow - INFO - Mensaje de éxito en checkout: Thank you for your order!
+2025-12-05 15:50:37,002 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_complete_checkout_flow_passed_20251205_155036.png
+2025-12-05 15:50:37,003 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:50:41,317 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:50:48,307 - test_checkout_negative - INFO - Mensaje de error mostrado: Error: First Name is required
+2025-12-05 15:50:48,457 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_checkout_missing_first_name_passed_20251205_155048.png
+2025-12-05 15:50:48,457 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:50:52,754 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:51:10,613 - test_inventory - INFO - Carrito pasó de 0 a 1
+2025-12-05 15:51:10,994 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_add_product_to_cart_passed_20251205_155110.png
+2025-12-05 15:51:10,994 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:51:15,324 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:51:23,118 - test_inventory - INFO - Precios obtenidos: [49.99, 29.99, 15.99, 15.99, 9.99, 7.99]
+2025-12-05 15:51:23,317 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_sort_products_high_to_low_passed_20251205_155123.png
+2025-12-05 15:51:23,317 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:51:27,579 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:51:33,356 - test_login - INFO - [LOGIN OK] Usuario: standard_user
+2025-12-05 15:51:35,617 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_success[standard_user]_passed_20251205_155135.png
+2025-12-05 15:51:35,620 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:51:39,931 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:51:44,213 - test_login - INFO - [LOGIN OK] Usuario: problem_user
+2025-12-05 15:51:46,332 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_success[problem_user]_passed_20251205_155146.png
+2025-12-05 15:51:46,335 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:51:50,626 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:51:55,387 - test_login - INFO - [LOGIN NOK] Escenario: Usuario vacío | username='' password='secret_sauce' | Esperado error que contenga: 'Username is required'
+2025-12-05 15:51:58,033 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Username is required'
+2025-12-05 15:51:58,214 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[empty_user]_passed_20251205_155158.png
+2025-12-05 15:51:58,217 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:52:02,628 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:52:07,960 - test_login - INFO - [LOGIN NOK] Escenario: Password vacía | username='standard_user' password='' | Esperado error que contenga: 'Password is required'
+2025-12-05 15:52:10,131 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Password is required'
+2025-12-05 15:52:10,273 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[empty_password]_passed_20251205_155210.png
+2025-12-05 15:52:10,276 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:52:14,544 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:52:19,170 - test_login - INFO - [LOGIN NOK] Escenario: Usuario bloqueado | username='locked_out_user' password='secret_sauce' | Esperado error que contenga: 'Sorry'
+2025-12-05 15:52:21,583 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Sorry, this user has been locked out.'
+2025-12-05 15:52:21,784 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[locked_out]_passed_20251205_155221.png
+2025-12-05 15:52:21,792 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:52:26,188 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:52:32,523 - test_login - INFO - [LOGIN NOK] Escenario: Password incorrecta | username='standard_user' password='wrong' | Esperado error que contenga: 'Username and password do not match'
+2025-12-05 15:52:34,970 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Username and password do not match any user in this service'
+2025-12-05 15:52:35,163 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[wrong_password]_passed_20251205_155234.png
+2025-12-05 15:52:35,172 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:53:32,122 - test_reqres_api - INFO - GET https://jsonplaceholder.typicode.com/posts/1 -> 200
+2025-12-05 15:53:32,474 - test_reqres_api - INFO - POST https://jsonplaceholder.typicode.com/posts -> 201
+2025-12-05 15:53:32,695 - test_reqres_api - INFO - DELETE https://jsonplaceholder.typicode.com/posts/1 -> 200
+2025-12-05 15:53:32,713 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:53:52,386 - test_checkout_flow - INFO - Mensaje de éxito en checkout: Thank you for your order!
+2025-12-05 15:53:52,572 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_complete_checkout_flow_passed_20251205_155352.png
+2025-12-05 15:53:52,577 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:53:58,379 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:54:07,100 - test_checkout_negative - INFO - Mensaje de error mostrado: Error: First Name is required
+2025-12-05 15:54:07,245 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_checkout_missing_first_name_passed_20251205_155407.png
+2025-12-05 15:54:07,250 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:54:11,732 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:54:33,797 - test_inventory - INFO - Carrito pasó de 0 a 1
+2025-12-05 15:54:34,309 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_add_product_to_cart_passed_20251205_155433.png
+2025-12-05 15:54:34,316 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:54:38,831 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:54:56,336 - test_inventory - INFO - Precios obtenidos: [49.99, 29.99, 15.99, 15.99, 9.99, 7.99]
+2025-12-05 15:54:56,812 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_sort_products_high_to_low_passed_20251205_155456.png
+2025-12-05 15:54:56,857 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:55:02,778 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:55:08,834 - test_login - INFO - [LOGIN OK] Usuario: standard_user
+2025-12-05 15:55:12,263 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_success[standard_user]_passed_20251205_155512.png
+2025-12-05 15:55:12,284 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:55:17,023 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:55:22,853 - test_login - INFO - [LOGIN OK] Usuario: problem_user
+2025-12-05 15:55:25,740 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_success[problem_user]_passed_20251205_155525.png
+2025-12-05 15:55:25,743 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:55:30,237 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:55:36,191 - test_login - INFO - [LOGIN NOK] Escenario: Usuario vacío | username='' password='secret_sauce' | Esperado error que contenga: 'Username is required'
+2025-12-05 15:55:38,528 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Username is required'
+2025-12-05 15:55:38,673 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[empty_user]_passed_20251205_155538.png
+2025-12-05 15:55:38,673 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:55:43,568 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:55:50,027 - test_login - INFO - [LOGIN NOK] Escenario: Password vacía | username='standard_user' password='' | Esperado error que contenga: 'Password is required'
+2025-12-05 15:55:52,268 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Password is required'
+2025-12-05 15:55:52,412 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[empty_password]_passed_20251205_155552.png
+2025-12-05 15:55:52,415 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:55:58,023 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:56:03,145 - test_login - INFO - [LOGIN NOK] Escenario: Usuario bloqueado | username='locked_out_user' password='secret_sauce' | Esperado error que contenga: 'Sorry'
+2025-12-05 15:56:05,966 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Sorry, this user has been locked out.'
+2025-12-05 15:56:06,219 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[locked_out]_passed_20251205_155605.png
+2025-12-05 15:56:06,341 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:56:11,691 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:56:20,419 - test_login - INFO - [LOGIN NOK] Escenario: Password incorrecta | username='standard_user' password='wrong' | Esperado error que contenga: 'Username and password do not match'
+2025-12-05 15:56:22,934 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Username and password do not match any user in this service'
+2025-12-05 15:56:23,333 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[wrong_password]_passed_20251205_155622.png
+2025-12-05 15:56:23,400 - conftest - INFO - Cerrando WebDriver
+2025-12-05 15:59:50,579 - test_reqres_api - INFO - GET https://jsonplaceholder.typicode.com/posts/1 -> 200
+2025-12-05 15:59:50,850 - test_reqres_api - INFO - POST https://jsonplaceholder.typicode.com/posts -> 201
+2025-12-05 15:59:51,121 - test_reqres_api - INFO - DELETE https://jsonplaceholder.typicode.com/posts/1 -> 200
+2025-12-05 15:59:51,131 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 15:59:59,512 - test_checkout_flow - INFO - Mensaje de éxito en checkout: Thank you for your order!
+2025-12-05 15:59:59,643 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_complete_checkout_flow_passed_20251205_155959.png
+2025-12-05 15:59:59,643 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:00:03,886 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:00:11,115 - test_checkout_negative - INFO - Mensaje de error mostrado: Error: First Name is required
+2025-12-05 16:00:11,275 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_checkout_missing_first_name_passed_20251205_160011.png
+2025-12-05 16:00:11,275 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:00:15,618 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:00:19,806 - test_demo_failure - INFO - [DEMO FAIL] Iniciando test intencionalmente fallido de UI.
+2025-12-05 16:00:21,390 - test_demo_failure - INFO - [DEMO FAIL] Buscando texto inexistente en la página: 'ESTE_TEXTO_NO_EXISTE_EN_LA_PAGINA'
+2025-12-05 16:00:23,600 - conftest - INFO - Screenshot (failed) guardado en screenshots\test_demo_ui_intentional_failure_failed_20251205_160023.png
+2025-12-05 16:00:23,610 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:00:25,866 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:00:42,478 - test_inventory - INFO - Carrito pasó de 0 a 1
+2025-12-05 16:00:42,681 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_add_product_to_cart_passed_20251205_160042.png
+2025-12-05 16:00:42,684 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:00:47,113 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:00:55,627 - test_inventory - INFO - Precios obtenidos: [49.99, 29.99, 15.99, 15.99, 9.99, 7.99]
+2025-12-05 16:00:55,856 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_sort_products_high_to_low_passed_20251205_160055.png
+2025-12-05 16:00:55,859 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:01:00,123 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:01:05,672 - test_login - INFO - [LOGIN OK] Usuario: standard_user
+2025-12-05 16:01:08,027 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_success[standard_user]_passed_20251205_160107.png
+2025-12-05 16:01:08,029 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:01:12,362 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:01:17,717 - test_login - INFO - [LOGIN OK] Usuario: problem_user
+2025-12-05 16:01:19,614 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_success[problem_user]_passed_20251205_160119.png
+2025-12-05 16:01:19,623 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:01:23,906 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:01:28,947 - test_login - INFO - [LOGIN NOK] Escenario: Usuario vacío | username='' password='secret_sauce' | Esperado error que contenga: 'Username is required'
+2025-12-05 16:01:30,620 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Username is required'
+2025-12-05 16:01:30,882 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[empty_user]_passed_20251205_160130.png
+2025-12-05 16:01:30,882 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:01:35,208 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:01:40,039 - test_login - INFO - [LOGIN NOK] Escenario: Password vacía | username='standard_user' password='' | Esperado error que contenga: 'Password is required'
+2025-12-05 16:01:41,639 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Password is required'
+2025-12-05 16:01:41,763 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[empty_password]_passed_20251205_160141.png
+2025-12-05 16:01:41,763 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:01:46,065 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:01:51,732 - test_login - INFO - [LOGIN NOK] Escenario: Usuario bloqueado | username='locked_out_user' password='secret_sauce' | Esperado error que contenga: 'Sorry'
+2025-12-05 16:01:53,463 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Sorry, this user has been locked out.'
+2025-12-05 16:01:53,603 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[locked_out]_passed_20251205_160153.png
+2025-12-05 16:01:53,603 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:01:57,873 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:02:02,896 - test_login - INFO - [LOGIN NOK] Escenario: Password incorrecta | username='standard_user' password='wrong' | Esperado error que contenga: 'Username and password do not match'
+2025-12-05 16:02:04,458 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Username and password do not match any user in this service'
+2025-12-05 16:02:04,585 - conftest - INFO - Screenshot (passed) guardado en screenshots\test_login_invalid_credentials[wrong_password]_passed_20251205_160204.png
+2025-12-05 16:02:04,585 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:10:27,014 - test_api_with_faker - INFO - [FAKER API] Payload generado: {'title': 'Step claim certain support them position.', 'body': 'Build cost open reason. Participant front building action four senior national. Market mention off.', 'userId': 72}
+2025-12-05 16:10:27,487 - test_reqres_api - INFO - GET https://jsonplaceholder.typicode.com/posts/1 -> 200
+2025-12-05 16:10:27,689 - test_reqres_api - INFO - POST https://jsonplaceholder.typicode.com/posts -> 201
+2025-12-05 16:10:27,960 - test_reqres_api - INFO - DELETE https://jsonplaceholder.typicode.com/posts/1 -> 200
+2025-12-05 16:10:27,980 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:10:38,033 - test_checkout_flow - INFO - Mensaje de éxito en checkout: Thank you for your order!
+2025-12-05 16:10:38,036 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:10:42,333 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:10:52,543 - test_checkout_negative - INFO - Mensaje de error mostrado: Error: First Name is required
+2025-12-05 16:10:52,546 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:10:56,835 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:11:02,465 - test_demo_failure - INFO - [DEMO FAIL] Iniciando test intencionalmente fallido de UI.
+2025-12-05 16:11:04,165 - test_demo_failure - INFO - [DEMO FAIL] Buscando texto inexistente en la página: 'ESTE_TEXTO_NO_EXISTE_EN_LA_PAGINA'
+2025-12-05 16:11:07,324 - conftest - ERROR - Test test_demo_ui_intentional_failure falló. Screenshot guardado en screenshots\test_demo_ui_intentional_failure_20251205_161107.png
+2025-12-05 16:11:07,329 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:11:09,698 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:11:31,143 - test_inventory - INFO - Carrito pasó de 0 a 1
+2025-12-05 16:11:31,147 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:11:35,513 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:11:44,056 - test_inventory - INFO - Precios obtenidos: [49.99, 29.99, 15.99, 15.99, 9.99, 7.99]
+2025-12-05 16:11:44,061 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:11:48,292 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:11:57,845 - test_login - INFO - [LOGIN OK] Usuario: standard_user
+2025-12-05 16:11:59,915 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:12:04,200 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:12:08,987 - test_login - INFO - [LOGIN OK] Usuario: problem_user
+2025-12-05 16:12:10,852 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:12:15,130 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:12:21,371 - test_login - INFO - [LOGIN NOK] Escenario: Usuario vacío | username='' password='secret_sauce' | Esperado error que contenga: 'Username is required'
+2025-12-05 16:12:29,291 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Username is required'
+2025-12-05 16:12:29,308 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:12:33,841 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:12:39,153 - test_login - INFO - [LOGIN NOK] Escenario: Password vacía | username='standard_user' password='' | Esperado error que contenga: 'Password is required'
+2025-12-05 16:12:40,750 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Password is required'
+2025-12-05 16:12:40,755 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:12:45,009 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:12:49,593 - test_login - INFO - [LOGIN NOK] Escenario: Usuario bloqueado | username='locked_out_user' password='secret_sauce' | Esperado error que contenga: 'Sorry'
+2025-12-05 16:12:51,336 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Sorry, this user has been locked out.'
+2025-12-05 16:12:51,506 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:12:55,827 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:13:02,864 - test_login - INFO - [LOGIN NOK] Escenario: Password incorrecta | username='standard_user' password='wrong' | Esperado error que contenga: 'Username and password do not match'
+2025-12-05 16:13:07,374 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Username and password do not match any user in this service'
+2025-12-05 16:13:07,378 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:27:40,051 - test_api_with_faker - INFO - [FAKER API] Payload generado: {'title': 'White prove least argue general child have.', 'body': 'Action American road coach.', 'userId': 79}
+2025-12-05 16:27:40,521 - test_reqres_api - INFO - GET https://jsonplaceholder.typicode.com/posts/1 -> 200
+2025-12-05 16:27:40,763 - test_reqres_api - INFO - POST https://jsonplaceholder.typicode.com/posts -> 201
+2025-12-05 16:27:41,109 - test_reqres_api - INFO - DELETE https://jsonplaceholder.typicode.com/posts/1 -> 200
+2025-12-05 16:27:41,119 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:27:51,949 - test_checkout_flow - INFO - Mensaje de éxito en checkout: Thank you for your order!
+2025-12-05 16:27:51,951 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:27:56,168 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:28:03,332 - test_checkout_negative - INFO - Mensaje de error mostrado: Error: First Name is required
+2025-12-05 16:28:03,335 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:28:07,645 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:28:11,748 - test_demo_failure - INFO - [DEMO FAIL] Iniciando test intencionalmente fallido de UI.
+2025-12-05 16:28:13,549 - test_demo_failure - INFO - [DEMO FAIL] Buscando texto inexistente en la página: 'ESTE_TEXTO_NO_EXISTE_EN_LA_PAGINA'
+2025-12-05 16:28:16,178 - conftest - ERROR - Test test_demo_ui_intentional_failure falló. Screenshot guardado en screenshots\test_demo_ui_intentional_failure_20251205_162815.png
+2025-12-05 16:28:16,183 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:28:19,928 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:28:37,213 - test_inventory - INFO - Carrito pasó de 0 a 1
+2025-12-05 16:28:37,215 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:28:41,510 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:28:48,629 - test_inventory - INFO - Precios obtenidos: [49.99, 29.99, 15.99, 15.99, 9.99, 7.99]
+2025-12-05 16:28:48,633 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:28:52,889 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:28:57,875 - test_login - INFO - [LOGIN OK] Usuario: standard_user
+2025-12-05 16:29:00,480 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:29:04,953 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:29:09,733 - test_login - INFO - [LOGIN OK] Usuario: problem_user
+2025-12-05 16:29:12,185 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:29:16,803 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:29:22,219 - test_login - INFO - [LOGIN NOK] Escenario: Usuario vacío | username='' password='secret_sauce' | Esperado error que contenga: 'Username is required'
+2025-12-05 16:29:24,598 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Username is required'
+2025-12-05 16:29:24,603 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:29:29,084 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:29:33,900 - test_login - INFO - [LOGIN NOK] Escenario: Password vacía | username='standard_user' password='' | Esperado error que contenga: 'Password is required'
+2025-12-05 16:29:35,770 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Password is required'
+2025-12-05 16:29:35,773 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:29:40,076 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:29:45,436 - test_login - INFO - [LOGIN NOK] Escenario: Usuario bloqueado | username='locked_out_user' password='secret_sauce' | Esperado error que contenga: 'Sorry'
+2025-12-05 16:29:47,244 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Sorry, this user has been locked out.'
+2025-12-05 16:29:47,248 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:29:51,534 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:29:57,889 - test_login - INFO - [LOGIN NOK] Escenario: Password incorrecta | username='standard_user' password='wrong' | Esperado error que contenga: 'Username and password do not match'
+2025-12-05 16:30:00,266 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Username and password do not match any user in this service'
+2025-12-05 16:30:00,269 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:45:50,555 - test_api_with_faker - INFO - [FAKER API] Payload generado: {'title': 'Cold generation collection.', 'body': 'Bed health better buy across. Close force lawyer body business. Current world admit speak.', 'userId': 56}
+2025-12-05 16:45:51,131 - test_reqres_api - INFO - GET https://jsonplaceholder.typicode.com/posts/1 -> 200
+2025-12-05 16:45:51,483 - test_reqres_api - INFO - POST https://jsonplaceholder.typicode.com/posts -> 201
+2025-12-05 16:45:51,841 - test_reqres_api - INFO - DELETE https://jsonplaceholder.typicode.com/posts/1 -> 200
+2025-12-05 16:45:51,853 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:46:02,478 - test_checkout_flow - INFO - Mensaje de éxito en checkout: Thank you for your order!
+2025-12-05 16:46:02,481 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:46:07,053 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:46:20,736 - test_checkout_negative - INFO - Mensaje de error mostrado: Error: First Name is required
+2025-12-05 16:46:20,744 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:46:25,049 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:46:30,900 - test_demo_failure - INFO - [DEMO FAIL] Iniciando test intencionalmente fallido de UI.
+2025-12-05 16:46:33,184 - test_demo_failure - INFO - [DEMO FAIL] Buscando texto inexistente en la página: 'ESTE_TEXTO_NO_EXISTE_EN_LA_PAGINA'
+2025-12-05 16:46:36,942 - conftest - ERROR - Test test_demo_ui_intentional_failure falló. Screenshot guardado en screenshots\test_demo_ui_intentional_failure_20251205_164636.png
+2025-12-05 16:46:36,942 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:46:39,275 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:46:56,577 - test_inventory - INFO - Carrito pasó de 0 a 1
+2025-12-05 16:46:56,581 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:47:01,849 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:47:15,088 - test_inventory - INFO - Precios obtenidos: [49.99, 29.99, 15.99, 15.99, 9.99, 7.99]
+2025-12-05 16:47:15,092 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:47:20,265 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:47:28,131 - test_login - INFO - [LOGIN OK] Usuario: standard_user
+2025-12-05 16:47:31,342 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:47:38,047 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:47:50,736 - test_login - INFO - [LOGIN OK] Usuario: problem_user
+2025-12-05 16:47:53,478 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:47:58,562 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:48:03,827 - test_login - INFO - [LOGIN NOK] Escenario: Usuario vacío | username='' password='secret_sauce' | Esperado error que contenga: 'Username is required'
+2025-12-05 16:48:05,658 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Username is required'
+2025-12-05 16:48:05,661 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:48:11,124 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:48:16,472 - test_login - INFO - [LOGIN NOK] Escenario: Password vacía | username='standard_user' password='' | Esperado error que contenga: 'Password is required'
+2025-12-05 16:48:18,315 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Password is required'
+2025-12-05 16:48:18,319 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:48:22,604 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:48:26,922 - test_login - INFO - [LOGIN NOK] Escenario: Usuario bloqueado | username='locked_out_user' password='secret_sauce' | Esperado error que contenga: 'Sorry'
+2025-12-05 16:48:28,542 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Sorry, this user has been locked out.'
+2025-12-05 16:48:28,544 - conftest - INFO - Cerrando WebDriver
+2025-12-05 16:48:32,773 - conftest - INFO - Iniciando WebDriver (Chrome)
+2025-12-05 16:48:36,881 - test_login - INFO - [LOGIN NOK] Escenario: Password incorrecta | username='standard_user' password='wrong' | Esperado error que contenga: 'Username and password do not match'
+2025-12-05 16:48:38,492 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: 'Epic sadface: Username and password do not match any user in this service'
+2025-12-05 16:48:38,497 - conftest - INFO - Cerrando WebDriver
