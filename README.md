@@ -19,20 +19,32 @@ Este proyecto implementa un framework completo de automatización que integra:
 
 ## 📂 Estructura del Proyecto
 sauce-automation/
+
 ├── pages/ (POM)
+
 ├── tests/
-│ ├── ui/
-│ └── api/
+│   ├── ui/
+│   └── api/
+
 ├── utils/
+
 ├── resources/
-│ └── test_data/
+│   └── test_data/
+
 ├── screenshots/
+
 ├── logs/
+
 ├── reports/
+
 ├── conftest.py
+
 ├── pytest.ini
+
 ├── requirements.txt
+
 └── README.md
+
 
 ## 📦 Instalación
 ```
