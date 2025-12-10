@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title id="head-title">report.html</title>
+      <style type="text/css">body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  /* do not increase min-width as some may use split screens */
+  min-width: 800px;
+  color: #999;
+}
+
+h1 {
+  font-size: 24px;
+  color: black;
+}
+
+h2 {
+  font-size: 16px;
+  color: black;
+}
+
+p {
+  color: black;
+}
+
+a {
+  color: #999;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+/******************************
+ * SUMMARY INFORMATION
+ ******************************/
+#environment td {
+  padding: 5px;
+  border: 1px solid #e6e6e6;
+  vertical-align: top;
+}
+#environment tr:nth-child(odd) {
+  background-color: #f6f6f6;
+}
+#environment ul {
+  margin: 0;
+  padding: 0 20px;
+}
+
+/******************************
+ * TEST RESULT COLORS
+ ******************************/
+span.passed,
+.passed .col-result {
+  color: green;
+}
+
+span.skipped,
+span.xfailed,
+span.rerun,
+.skipped .col-result,
+.xfailed .col-result,
+.rerun .col-result {
+  color: orange;
+}
+
+span.error,
+span.failed,
+span.xpassed,
+.error .col-result,
+.failed .col-result,
+.xpassed .col-result {
+  color: red;
+}
+
+.col-links__extra {
+  margin-right: 3px;
+}
+
+/******************************
+ * RESULTS TABLE
+ *
+ * 1. Table Layout
+ * 2. Extra
+ * 3. Sorting items
+ *
+ ******************************/
+/*------------------
+ * 1. Table Layout
+ *------------------*/
+#results-table {
+  border: 1px solid #e6e6e6;
+  color: #999;
+  font-size: 12px;
+  width: 100%;
+}
+#results-table th,
+#results-table td {
+  padding: 5px;
+  border: 1px solid #e6e6e6;
+  text-align: left;
+}
+#results-table th {
+  font-weight: bold;
+}
+
+/*------------------
+ * 2. Extra
+ *------------------*/
+.logwrapper {
+  max-height: 230px;
+  overflow-y: scroll;
+  background-color: #e6e6e6;
+}
+.logwrapper.expanded {
+  max-height: none;
+}
+.logwrapper.expanded .logexpander:after {
+  content: "collapse [-]";
+}
+.logwrapper .logexpander {
+  z-index: 1;
+  position: sticky;
+  top: 10px;
+  width: max-content;
+  border: 1px solid;
+  border-radius: 3px;
+  padding: 5px 7px;
+  margin: 10px 0 10px calc(100% - 80px);
+  cursor: pointer;
+  background-color: #e6e6e6;
+}
+.logwrapper .logexpander:after {
+  content: "expand [+]";
+}
+.logwrapper .logexpander:hover {
+  color: #000;
+  border-color: #000;
+}
+.logwrapper .log {
+  min-height: 40px;
+  position: relative;
+  top: -50px;
+  height: calc(100% + 50px);
+  border: 1px solid #e6e6e6;
+  color: black;
+  display: block;
+  font-family: "Courier New", Courier, monospace;
+  padding: 5px;
+  padding-right: 80px;
+  white-space: pre-wrap;
+}
+
+div.media {
+  border: 1px solid #e6e6e6;
+  float: right;
+  height: 240px;
+  margin: 0 5px;
+  overflow: hidden;
+  width: 320px;
+}
+
+.media-container {
+  display: grid;
+  grid-template-columns: 25px auto 25px;
+  align-items: center;
+  flex: 1 1;
+  overflow: hidden;
+  height: 200px;
+}
+
+.media-container--fullscreen {
+  grid-template-columns: 0px auto 0px;
+}
+
+.media-container__nav--right,
+.media-container__nav--left {
+  text-align: center;
+  cursor: pointer;
+}
+
+.media-container__viewport {
+  cursor: pointer;
+  text-align: center;
+  height: inherit;
+}
+.media-container__viewport img,
+.media-container__viewport video {
+  object-fit: cover;
+  width: 100%;
+  max-height: 100%;
+}
+
+.media__name,
+.media__counter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex: 0 0 25px;
+  align-items: center;
+}
+
+.collapsible td:not(.col-links) {
+  cursor: pointer;
+}
+.collapsible td:not(.col-links):hover::after {
+  color: #bbb;
+  font-style: italic;
+  cursor: pointer;
+}
+
+.col-result {
+  width: 130px;
+}
+.col-result:hover::after {
+  content: " (hide details)";
+}
+
+.col-result.collapsed:hover::after {
+  content: " (show details)";
+}
+
+#environment-header h2:hover::after {
+  content: " (hide details)";
+  color: #bbb;
+  font-style: italic;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+#environment-header.collapsed h2:hover::after {
+  content: " (show details)";
+  color: #bbb;
+  font-style: italic;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/*------------------
+ * 3. Sorting items
+ *------------------*/
+.sortable {
+  cursor: pointer;
+}
+.sortable.desc:after {
+  content: " ";
+  position: relative;
+  left: 5px;
+  bottom: -12.5px;
+  border: 10px solid #4caf50;
+  border-bottom: 0;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+.sortable.asc:after {
+  content: " ";
+  position: relative;
+  left: 5px;
+  bottom: 12.5px;
+  border: 10px solid #4caf50;
+  border-top: 0;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+
+.hidden, .summary__reload__button.hidden {
+  display: none;
+}
+
+.summary__data {
+  flex: 0 0 550px;
+}
+.summary__reload {
+  flex: 1 1;
+  display: flex;
+  justify-content: center;
+}
+.summary__reload__button {
+  flex: 0 0 300px;
+  display: flex;
+  color: white;
+  font-weight: bold;
+  background-color: #4caf50;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.summary__reload__button:hover {
+  background-color: #46a049;
+}
+.summary__spacer {
+  flex: 0 0 550px;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filters,
+.collapse {
+  display: flex;
+  align-items: center;
+}
+.filters button,
+.collapse button {
+  color: #999;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.filters button:hover,
+.collapse button:hover {
+  color: #ccc;
+}
+
+.filter__label {
+  margin-right: 10px;
+}
+
+      </style>
+    
+  </head>
+  <body>
+    <h1 id="title">report.html</h1>
+    <p>Report generated on 10-Dec-2025 at 12:15:24 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a>
+        v4.1.1</p>
+    <div id="environment-header">
+      <h2>Environment</h2>
+    </div>
+    <table id="environment"></table>
+    <!-- TEMPLATES -->
+      <template id="template_environment_row">
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+    </template>
+    <template id="template_results-table__body--empty">
+      <tbody class="results-table-row">
+        <tr id="not-found-message">
+          <td colspan="4">No results found. Check the filters.</th>
+        </tr>
+    </template>
+    <template id="template_results-table__tbody">
+      <tbody class="results-table-row">
+        <tr class="collapsible">
+        </tr>
+        <tr class="extras-row">
+          <td class="extra" colspan="4">
+            <div class="extraHTML"></div>
+            <div class="media">
+              <div class="media-container">
+                  <div class="media-container__nav--left"><</div>
+                  <div class="media-container__viewport">
+                    <img src="" />
+                    <video controls>
+                      <source src="" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="media-container__nav--right">></div>
+                </div>
+                <div class="media__name"></div>
+                <div class="media__counter"></div>
+            </div>
+            <div class="logwrapper">
+              <div class="logexpander"></div>
+              <div class="log"></div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </template>
+    <!-- END TEMPLATES -->
+    <div class="summary">
+      <div class="summary__data">
+        <h2>Summary</h2>
+        <div class="additional-summary prefix">
+        </div>
+        <p class="run-count">21 tests took 00:02:52.</p>
+        <p class="filter">(Un)check the boxes to filter the results.</p>
+        <div class="summary__reload">
+          <div class="summary__reload__button hidden" onclick="location.reload()">
+            <div>There are still tests running. <br />Reload this page to get the latest results!</div>
+          </div>
+        </div>
+        <div class="summary__spacer"></div>
+        <div class="controls">
+          <div class="filters">
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="failed" />
+            <span class="failed">1 Failed,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="passed" />
+            <span class="passed">20 Passed,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="skipped" disabled/>
+            <span class="skipped">0 Skipped,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="xfailed" disabled/>
+            <span class="xfailed">0 Expected failures,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="xpassed" disabled/>
+            <span class="xpassed">0 Unexpected passes,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="error" disabled/>
+            <span class="error">0 Errors,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="rerun" disabled/>
+            <span class="rerun">0 Reruns</span>
+          </div>
+          <div class="collapse">
+            <button id="show_all_details">Show all details</button>&nbsp;/&nbsp;<button id="hide_all_details">Hide all details</button>
+          </div>
+        </div>
+      </div>
+      <div class="additional-summary summary">
+      </div>
+      <div class="additional-summary postfix">
+      </div>
+    </div>
+    <table id="results-table">
+      <thead id="results-table-head">
+        <tr>
+          <th class="sortable" data-column-type="result">Result</th>
+          <th class="sortable" data-column-type="testId">Test</th>
+          <th class="sortable" data-column-type="duration">Duration</th>
+          <th>Links</th>
+        </tr>
+      </thead>
+    </table>
+  </body>
+  <footer>
+    <div id="data-container" data-jsonblob="{&#34;environment&#34;: {&#34;Python&#34;: &#34;3.8.10&#34;, &#34;Platform&#34;: &#34;Windows-7-6.1.7601-SP1&#34;, &#34;Packages&#34;: {&#34;pytest&#34;: &#34;8.3.5&#34;, &#34;pluggy&#34;: &#34;1.5.0&#34;}, &#34;Plugins&#34;: {&#34;anyio&#34;: &#34;3.3.3&#34;, &#34;dash&#34;: &#34;2.17.0&#34;, &#34;Faker&#34;: &#34;35.2.2&#34;, &#34;html&#34;: &#34;4.1.1&#34;, &#34;metadata&#34;: &#34;3.1.1&#34;}}, &#34;tests&#34;: {&#34;tests/api/test_api_with_faker.py::test_create_post_with_faker&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_with_faker.py::test_create_post_with_faker&#34;, &#34;duration&#34;: &#34;295 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_with_faker.py::test_create_post_with_faker&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;295 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stderr call -----------------------------\n2025-12-10 12:12:09,026 - test_api_with_faker - INFO - [FAKER API] Payload generado: {&amp;#x27;title&amp;#x27;: &amp;#x27;Instead too industry so sign able drug.&amp;#x27;, &amp;#x27;body&amp;#x27;: &amp;#x27;Because probably act western plant court. Science six music movement. Both ten game really pay close majority analysis.&amp;#x27;, &amp;#x27;userId&amp;#x27;: 36}\n\n------------------------------ Captured log call -------------------------------\nINFO     test_api_with_faker:test_api_with_faker.py:25 [FAKER API] Payload generado: {&amp;#x27;title&amp;#x27;: &amp;#x27;Instead too industry so sign able drug.&amp;#x27;, &amp;#x27;body&amp;#x27;: &amp;#x27;Because probably act western plant court. Science six music movement. Both ten game really pay close majority analysis.&amp;#x27;, &amp;#x27;userId&amp;#x27;: 36}\n\n&#34;}], &#34;tests/api/test_reqres_api.py::test_get_post&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_reqres_api.py::test_get_post&#34;, &#34;duration&#34;: &#34;141 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_reqres_api.py::test_get_post&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;141 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stderr call -----------------------------\n2025-12-10 12:12:09,451 - test_reqres_api - INFO - GET https://jsonplaceholder.typicode.com/posts/1 -&amp;gt; 200\n\n------------------------------ Captured log call -------------------------------\nINFO     test_reqres_api:test_reqres_api.py:20 GET https://jsonplaceholder.typicode.com/posts/1 -&amp;gt; 200\n\n&#34;}, {&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_reqres_api.py::test_get_post&#34;, &#34;duration&#34;: &#34;55 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_reqres_api.py::test_get_post&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;55 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stderr call -----------------------------\n2025-12-10 12:12:09,905 - test_reqres_api - INFO - GET https://jsonplaceholder.typicode.com/posts/1 -&amp;gt; 200\n\n------------------------------ Captured log call -------------------------------\nINFO     test_reqres_api:test_reqres_api.py:20 GET https://jsonplaceholder.typicode.com/posts/1 -&amp;gt; 200\n\n&#34;}, {&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_reqres_api.py::test_get_post&#34;, &#34;duration&#34;: &#34;59 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_reqres_api.py::test_get_post&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;59 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stderr call -----------------------------\n2025-12-10 12:12:10,470 - test_reqres_api - INFO - GET https://jsonplaceholder.typicode.com/posts/1 -&amp;gt; 200\n\n------------------------------ Captured log call -------------------------------\nINFO     test_reqres_api:test_reqres_api.py:20 GET https://jsonplaceholder.typicode.com/posts/1 -&amp;gt; 200\n\n&#34;}], &#34;tests/api/test_reqres_api.py::test_create_post&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_reqres_api.py::test_create_post&#34;, &#34;duration&#34;: &#34;190 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_reqres_api.py::test_create_post&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;190 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stderr call -----------------------------\n2025-12-10 12:12:09,642 - test_reqres_api - INFO - POST https://jsonplaceholder.typicode.com/posts -&amp;gt; 201\n\n------------------------------ Captured log call -------------------------------\nINFO     test_reqres_api:test_reqres_api.py:33 POST https://jsonplaceholder.typicode.com/posts -&amp;gt; 201\n\n&#34;}, {&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_reqres_api.py::test_create_post&#34;, &#34;duration&#34;: &#34;264 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_reqres_api.py::test_create_post&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;264 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stderr call -----------------------------\n2025-12-10 12:12:10,137 - test_reqres_api - INFO - POST https://jsonplaceholder.typicode.com/posts -&amp;gt; 201\n\n------------------------------ Captured log call -------------------------------\nINFO     test_reqres_api:test_reqres_api.py:33 POST https://jsonplaceholder.typicode.com/posts -&amp;gt; 201\n\n&#34;}, {&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_reqres_api.py::test_create_post&#34;, &#34;duration&#34;: &#34;218 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_reqres_api.py::test_create_post&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;218 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stderr call -----------------------------\n2025-12-10 12:12:10,702 - test_reqres_api - INFO - POST https://jsonplaceholder.typicode.com/posts -&amp;gt; 201\n\n------------------------------ Captured log call -------------------------------\nINFO     test_reqres_api:test_reqres_api.py:33 POST https://jsonplaceholder.typicode.com/posts -&amp;gt; 201\n\n&#34;}], &#34;tests/api/test_reqres_api.py::test_delete_post&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_reqres_api.py::test_delete_post&#34;, &#34;duration&#34;: &#34;194 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_reqres_api.py::test_delete_post&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;194 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stderr call -----------------------------\n2025-12-10 12:12:09,845 - test_reqres_api - INFO - DELETE https://jsonplaceholder.typicode.com/posts/1 -&amp;gt; 200\n\n------------------------------ Captured log call -------------------------------\nINFO     test_reqres_api:test_reqres_api.py:47 DELETE https://jsonplaceholder.typicode.com/posts/1 -&amp;gt; 200\n\n&#34;}, {&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_reqres_api.py::test_delete_post&#34;, &#34;duration&#34;: &#34;241 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_reqres_api.py::test_delete_post&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;241 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stderr call -----------------------------\n2025-12-10 12:12:10,419 - test_reqres_api - INFO - DELETE https://jsonplaceholder.typicode.com/posts/1 -&amp;gt; 200\n\n------------------------------ Captured log call -------------------------------\nINFO     test_reqres_api:test_reqres_api.py:47 DELETE https://jsonplaceholder.typicode.com/posts/1 -&amp;gt; 200\n\n&#34;}, {&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_reqres_api.py::test_delete_post&#34;, &#34;duration&#34;: &#34;200 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_reqres_api.py::test_delete_post&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;200 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stderr call -----------------------------\n2025-12-10 12:12:10,913 - test_reqres_api - INFO - DELETE https://jsonplaceholder.typicode.com/posts/1 -&amp;gt; 200\n\n------------------------------ Captured log call -------------------------------\nINFO     test_reqres_api:test_reqres_api.py:47 DELETE https://jsonplaceholder.typicode.com/posts/1 -&amp;gt; 200\n\n&#34;}], &#34;tests/ui/test_checkout_flow.py::test_complete_checkout_flow&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/ui/test_checkout_flow.py::test_complete_checkout_flow&#34;, &#34;duration&#34;: &#34;00:00:32&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/ui/test_checkout_flow.py::test_complete_checkout_flow&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:32&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stderr setup -----------------------------\n2025-12-10 12:12:10,923 - conftest - INFO - Iniciando WebDriver (Chrome)\n\n------------------------------ Captured log setup ------------------------------\nINFO     conftest:conftest.py:34 Iniciando WebDriver (Chrome)\n\n----------------------------- Captured stderr call -----------------------------\n2025-12-10 12:12:35,979 - test_checkout_flow - INFO - Mensaje de \u00e9xito en checkout: Thank you for your order!\n\n------------------------------ Captured log call -------------------------------\nINFO     test_checkout_flow:test_checkout_flow.py:35 Mensaje de \u00e9xito en checkout: Thank you for your order!\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-12-10 12:12:35,982 - conftest - INFO - Cerrando WebDriver\n\n---------------------------- Captured log teardown -----------------------------\nINFO     conftest:conftest.py:44 Cerrando WebDriver&#34;}], &#34;tests/ui/test_checkout_negative.py::test_checkout_missing_first_name&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/ui/test_checkout_negative.py::test_checkout_missing_first_name&#34;, &#34;duration&#34;: &#34;00:00:17&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/ui/test_checkout_negative.py::test_checkout_missing_first_name&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:17&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stderr setup -----------------------------\n2025-12-10 12:12:44,576 - conftest - INFO - Iniciando WebDriver (Chrome)\n\n------------------------------ Captured log setup ------------------------------\nINFO     conftest:conftest.py:34 Iniciando WebDriver (Chrome)\n\n----------------------------- Captured stderr call -----------------------------\n2025-12-10 12:12:58,934 - test_checkout_negative - INFO - Mensaje de error mostrado: Error: First Name is required\n\n------------------------------ Captured log call -------------------------------\nINFO     test_checkout_negative:test_checkout_negative.py:54 Mensaje de error mostrado: Error: First Name is required\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-12-10 12:12:58,937 - conftest - INFO - Cerrando WebDriver\n\n---------------------------- Captured log teardown -----------------------------\nINFO     conftest:conftest.py:44 Cerrando WebDriver&#34;}], &#34;tests/ui/test_demo_failure.py::test_demo_ui_intentional_failure&#34;: [{&#34;extras&#34;: [{&#34;name&#34;: &#34;Image&#34;, &#34;format_type&#34;: &#34;image&#34;, &#34;content&#34;: &#34;screenshots\\test_demo_ui_intentional_failure_20251210_121319.png&#34;, &#34;mime_type&#34;: &#34;image/png&#34;, &#34;extension&#34;: &#34;png&#34;}], &#34;result&#34;: &#34;Failed&#34;, &#34;testId&#34;: &#34;tests/ui/test_demo_failure.py::test_demo_ui_intentional_failure&#34;, &#34;duration&#34;: &#34;00:00:19&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Failed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/ui/test_demo_failure.py::test_demo_ui_intentional_failure&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:19&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;driver = &amp;lt;selenium.webdriver.chrome.webdriver.WebDriver (session=&amp;quot;f2f2fb31cc6243a068cb71f5e0aed06b&amp;quot;)&amp;gt;\nbase_url = &amp;#x27;https://www.saucedemo.com/&amp;#x27;\nvalid_users = {&amp;#x27;problem_user&amp;#x27;: {&amp;#x27;password&amp;#x27;: &amp;#x27;secret_sauce&amp;#x27;, &amp;#x27;username&amp;#x27;: &amp;#x27;problem_user&amp;#x27;}, &amp;#x27;standard_user&amp;#x27;: {&amp;#x27;password&amp;#x27;: &amp;#x27;secret_sauce&amp;#x27;, &amp;#x27;username&amp;#x27;: &amp;#x27;standard_user&amp;#x27;}}\n\n    def test_demo_ui_intentional_failure(driver, base_url, valid_users):\n        &amp;quot;&amp;quot;&amp;quot;\n        Caso de prueba INTENCIONALMENTE FALLIDO.\n    \n        Objetivo:\n        - Demostrar c\u00f3mo el framework se comporta ante un fallo:\n          * Se genera screenshot.\n          * El fallo queda registrado en el log.\n          * El reporte HTML muestra el test en rojo con el mensaje de error.\n    \n        Escenario:\n        - Login correcto con usuario v\u00e1lido.\n        - Se verifica (a prop\u00f3sito) que exista un texto inexistente en la p\u00e1gina.\n    \n        Este test NO representa un fallo funcional real de la aplicaci\u00f3n,\n        sino un caso artificial para mostrar las capacidades del framework.\n        &amp;quot;&amp;quot;&amp;quot;\n    \n        login_page = LoginPage(driver)\n        inventory_page = InventoryPage(driver)\n    \n        user = valid_users[&amp;quot;standard_user&amp;quot;]\n        logger.info(&amp;quot;[DEMO FAIL] Iniciando test intencionalmente fallido de UI.&amp;quot;)\n    \n        # Login normal (esto s\u00ed deber\u00eda funcionar)\n        login_page.open_login_page(base_url)\n        login_page.login(user[&amp;quot;username&amp;quot;], user[&amp;quot;password&amp;quot;])\n    \n        assert inventory_page.is_loaded(), (\n            &amp;quot;Precondici\u00f3n fallida: se esperaba poder acceder al inventario despu\u00e9s del login.&amp;quot;\n        )\n    \n        # Aqu\u00ed viene la parte intencionalmente incorrecta:\n        texto_inexistente = &amp;quot;ESTE_TEXTO_NO_EXISTE_EN_LA_PAGINA&amp;quot;\n        page_source = driver.page_source\n    \n        logger.info(\n            f&amp;quot;[DEMO FAIL] Buscando texto inexistente en la p\u00e1gina: &amp;#x27;{texto_inexistente}&amp;#x27;&amp;quot;\n        )\n    \n&amp;gt;       assert texto_inexistente in page_source, (\n            &amp;quot;TEST DE DEMOSTRACI\u00d3N DE FALLO.\\n&amp;quot;\n            f&amp;quot;  Esperado (a prop\u00f3sito): que la p\u00e1gina contenga el texto: &amp;#x27;{texto_inexistente}&amp;#x27;.\\n&amp;quot;\n            &amp;quot;  Obtenido: ese texto NO est\u00e1 en la p\u00e1gina.\\n\\n&amp;quot;\n            &amp;quot;Este caso est\u00e1 dise\u00f1ado para fallar y as\u00ed mostrar:\\n&amp;quot;\n            &amp;quot;  - Captura autom\u00e1tica de pantalla.\\n&amp;quot;\n            &amp;quot;  - Registro detallado en logs.\\n&amp;quot;\n            &amp;quot;  - Estado FAILED en el reporte HTML.&amp;quot;\n        )\nE       AssertionError: TEST DE DEMOSTRACI\u00d3N DE FALLO.\nE           Esperado (a prop\u00f3sito): que la p\u00e1gina contenga el texto: &amp;#x27;ESTE_TEXTO_NO_EXISTE_EN_LA_PAGINA&amp;#x27;.\nE           Obtenido: ese texto NO est\u00e1 en la p\u00e1gina.\nE         \nE         Este caso est\u00e1 dise\u00f1ado para fallar y as\u00ed mostrar:\nE           - Captura autom\u00e1tica de pantalla.\nE           - Registro detallado en logs.\nE           - Estado FAILED en el reporte HTML.\nE       assert &amp;#x27;ESTE_TEXTO_NO_EXISTE_EN_LA_PAGINA&amp;#x27; in &amp;#x27;&amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta charset=&amp;quot;utf-8&amp;quot;&amp;gt;&amp;lt;link rel=&amp;quot;icon&amp;quot; href=&amp;quot;/favicon.ico&amp;quot;&amp;gt;&amp;lt;meta name=&amp;quot;robots&amp;quot; content=&amp;quot;noindex&amp;quot;&amp;gt;&amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width,initial-scale=1&amp;quot;&amp;gt;&amp;lt;meta name=&amp;quot;theme-color&amp;quot; content=&amp;quot;#ffffff&amp;quot;&amp;gt;&amp;lt;meta name=&amp;quot;description&amp;quot; content=&amp;quot;Sauce Labs Swag Labs app&amp;quot;&amp;gt;&amp;lt;link rel=&amp;quot;apple-touch-icon&amp;quot; href=&amp;quot;/icon/icon-192x192.png&amp;quot;&amp;gt;&amp;lt;link rel=&amp;quot;manifest&amp;quot; href=&amp;quot;/manifest.json&amp;quot;&amp;gt;&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;!function(n){if(&amp;quot;/&amp;quot;===n.search[1]){var a=n.search.slice(1).split(&amp;quot;&amp;amp;&amp;quot;).map(function(n){return n.replace(/~and~/g,&amp;quot;&amp;amp;&amp;quot;)}).join(&amp;quot;?&amp;quot;);window.history.replaceState(null,null,n.pathname.slice(0,-1)+a+n.hash)}}(window.location)&amp;lt;/script&amp;gt;&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;amp;amp;family=DM+Sans:wght@400;500&amp;quot;&amp;gt;&amp;lt;title&amp;gt;Swag Labs&amp;lt;/title&amp;gt;&amp;lt;script defer=&amp;quot;defer&amp;quot; src=&amp;quot;/static/js/main.bcf4bc5f.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;link href=&amp;quot;/static/css/main.8a7d64a1.css&amp;quot; rel=&amp;quot;stylesheet&amp;quot;&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;&amp;lt;noscript&amp;gt;You need to enable JavaScript to run this app.&amp;lt;/noscript&amp;gt;&amp;lt;div id=&amp;quot;root&amp;quot;&amp;gt;&amp;lt;div id=&amp;quot;page_wrapper&amp;quot; class=&amp;quot;page_wrapper&amp;quot;&amp;gt;&amp;lt;div id=&amp;quot;contents_wrapper&amp;quot;&amp;gt;&amp;lt;div id=&amp;quot;header_container&amp;quot; class=&amp;quot;header_container&amp;quot; data-test=&amp;quot;header-container&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;primary_header&amp;quot; data-test=&amp;quot;primary-header&amp;quot;&amp;gt;&amp;lt;div id=&amp;quot;menu_button_container&amp;quot;&amp;gt;&amp;lt;div&amp;gt;&amp;lt;div&amp;gt;&amp;lt;div class=&amp;quot;bm-burger-button&amp;quot; style=&amp;quot;z-index: 1000;&amp;quot;&amp;gt;&amp;lt;button type=&amp;quot;button&amp;quot; id=&amp;quot;react-burger-menu-btn&amp;quot; style=&amp;quot;position: absolute; left: 0px; top: 0px; z-index: 1; width: 100%; height: 100%; margin: 0px; padding: 0px; border: none; font-size: 0px; background: transparent; cursor: pointer;&amp;quot;&amp;gt;Open Menu&amp;lt;/button&amp;gt;&amp;lt;img src=&amp;quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDkuMC1jMDAwIDc5LmRhNGE3ZTVlZiwgMjAyMi8xMS8yMi0xMzo1MDowNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDI0LjEgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QTA3QzBCMEVBRUYzMTFFREIwRThFMzc3OTlDRTMyNUIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QTA3QzBCMEZBRUYzMTFFREIwRThFMzc3OTlDRTMyNUIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpBMDdDMEIwQ0FFRjMxMUVEQjBFOEUzNzc5OUNFMzI1QiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpBMDdDMEIwREFFRjMxMUVEQjBFOEUzNzc5OUNFMzI1QiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pq0LVkQAAAERSURBVHjaYvz//z/DQAImhgEGow5gARE379wx8IuN2f/2/XsBeliqqqj4YMHkKYHqKioXwCEwb+mSAnpZDgK3799XmL9sWT48CrQ1NS/QO+gtTUwOgmhGWDY8c+GCw9NnzxToYbm0lNQDEwODAygOGM2Gow4Y0ILo+YsXCgtWLM//+OkzXcoCfj7eDwkRURMlJcQfgB0wf/mygr6ZM/Pp6XNg7mOsKiwqGBxRkBAZNQFEf/r8hZ8elvLx8nxMiIyeMFoQjTpg8BREA1kdgx2wcdu2hOSiwvn09HlfY1NhXHj4BHAUHDt9yoHeQX/t5k19eBpIio6ZAGoo0styYUHBD4lRURNHC6JRB4w6AAQAAgwA/fRn191dMT8AAAAASUVORK5CYII=&amp;quot; class=&amp;quot;bm-icon&amp;quot; srcset=&amp;quot;/static/media/menu3x.52cc17a327296e6394f33e8c20abc62c.svg&amp;quot; alt=&amp;quot;Open Menu&amp;quot; data-test=&amp;quot;open-menu&amp;quot; style=&amp;quot;width: 100%; height: 100%;&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div id=&amp;quot;&amp;quot; class=&amp;quot;bm-menu-wrap&amp;quot; aria-hidden=&amp;quot;true&amp;quot; style=&amp;quot;position: fixed; right: inherit; z-index: 1100; width: 300px; height: 100%; transform: translate3d(-100%, 0px, 0px); transition: all 0.5s ease 0s;&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;bm-menu&amp;quot; style=&amp;quot;height: 100%; box-sizing: border-box; overflow: auto;&amp;quot;&amp;gt;&amp;lt;nav class=&amp;quot;bm-item-list&amp;quot; style=&amp;quot;height: 100%;&amp;quot;&amp;gt;&amp;lt;a id=&amp;quot;inventory_sidebar_link&amp;quot; class=&amp;quot;bm-item menu-item&amp;quot; href=&amp;quot;#&amp;quot; data-test=&amp;quot;inventory-sidebar-link&amp;quot; tabindex=&amp;quot;-1&amp;quot; style=&amp;quot;display: block;&amp;quot;&amp;gt;All Items&amp;lt;/a&amp;gt;&amp;lt;a id=&amp;quot;about_sidebar_link&amp;quot; class=&amp;quot;bm-item menu-item&amp;quot; href=&amp;quot;https://saucelabs.com/&amp;quot; data-test=&amp;quot;about-sidebar-link&amp;quot; tabindex=&amp;quot;-1&amp;quot; style=&amp;quot;display: block;&amp;quot;&amp;gt;About&amp;lt;/a&amp;gt;&amp;lt;a id=&amp;quot;logout_sidebar_link&amp;quot; class=&amp;quot;bm-item menu-item&amp;quot; href=&amp;quot;#&amp;quot; data-test=&amp;quot;logout-sidebar-link&amp;quot; tabindex=&amp;quot;-1&amp;quot; style=&amp;quot;display: block;&amp;quot;&amp;gt;Logout&amp;lt;/a&amp;gt;&amp;lt;a id=&amp;quot;reset_sidebar_link&amp;quot; class=&amp;quot;bm-item menu-item&amp;quot; href=&amp;quot;#&amp;quot; data-test=&amp;quot;reset-sidebar-link&amp;quot; tabindex=&amp;quot;-1&amp;quot; style=&amp;quot;display: block;&amp;quot;&amp;gt;Reset App State&amp;lt;/a&amp;gt;&amp;lt;/nav&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div&amp;gt;&amp;lt;div class=&amp;quot;bm-cross-button&amp;quot; style=&amp;quot;position: absolute; width: 24px; height: 24px; right: 8px; top: 8px;&amp;quot;&amp;gt;&amp;lt;button type=&amp;quot;button&amp;quot; id=&amp;quot;react-burger-cross-btn&amp;quot; tabindex=&amp;quot;-1&amp;quot; style=&amp;quot;position: absolute; left: 0px; top: 0px; z-index: 1; width: 100%; height: 100%; margin: 0px; padding: 0px; border: none; font-size: 0px; background: transparent; cursor: pointer;&amp;quot;&amp;gt;Close Menu&amp;lt;/button&amp;gt;&amp;lt;img src=&amp;quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDkuMC1jMDAwIDc5LmRhNGE3ZTVlZiwgMjAyMi8xMS8yMi0xMzo1MDowNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDI0LjEgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NkNCNjBCQjlBRUY4MTFFREIwRThFMzc3OTlDRTMyNUIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NkNCNjBCQkFBRUY4MTFFREIwRThFMzc3OTlDRTMyNUIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpBMDdDMEIxNEFFRjMxMUVEQjBFOEUzNzc5OUNFMzI1QiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2Q0I2MEJCOEFFRjgxMUVEQjBFOEUzNzc5OUNFMzI1QiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PtV59sYAAAFSSURBVHjaYvz//z/DQAImhgEGow7AcMC0uXPrRTTU/3uFh5//8uWLAKUWgMyITEvbDzJzKtBsDAWgRIiMhdXV/sOwZ1jY+c+fPwugqyEWg/SCzEA2E10NRgi42dkfgLFPXbxgEJacvJ+ckADpAekFmQETM9M3uEAwBD4BXe2B5mpSQwKbz0H8T1jMwGoAJY4gxXKcDiDXEaRajtcBpDqCHMsJOoBYR5BrOVEOIOQISiwHYUZiK6PP0Gx1Gku2Qs9qK+fOdeTl4flAjLmMpNSG2ByBDEi1HGs5QE50kBrseEtCgkEGxbjkaFobYiteKS22mSgt202RyneyHEFp2U5p3UGVioUSR1CtYiHXEQzUrFjIcQTVLCfXEVS1nBxHYGim1HJ8johITd1P0AHUsByfIwg6YMqc2Q0ghVFpqfspsRybIyYDzSa7Oh7tmg1bBwAEGAACANpiovW4dgAAAABJRU5ErkJggg==&amp;quot; class=&amp;quot;bm-cross&amp;quot; srcset=&amp;quot;/static/media/close@3x.a30a8a1db39c69f50a19aa3c34876918.svg&amp;quot; alt=&amp;quot;Close Menu&amp;quot; data-test=&amp;quot;close-menu&amp;quot; style=&amp;quot;width: 100%; height: 100%;&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;header_label&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;app_logo&amp;quot;&amp;gt;Swag Labs&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div id=&amp;quot;shopping_cart_container&amp;quot; class=&amp;quot;shopping_cart_container&amp;quot;&amp;gt;&amp;lt;a class=&amp;quot;shopping_cart_link&amp;quot; data-test=&amp;quot;shopping-cart-link&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;header_secondary_container&amp;quot; data-test=&amp;quot;secondary-header&amp;quot;&amp;gt;&amp;lt;span class=&amp;quot;title&amp;quot; data-test=&amp;quot;title&amp;quot;&amp;gt;Products&amp;lt;/span&amp;gt;&amp;lt;div class=&amp;quot;right_component&amp;quot;&amp;gt;&amp;lt;span class=&amp;quot;select_container&amp;quot;&amp;gt;&amp;lt;span class=&amp;quot;active_option&amp;quot; data-test=&amp;quot;active-option&amp;quot;&amp;gt;Name (A to Z)&amp;lt;/span&amp;gt;&amp;lt;select class=&amp;quot;product_sort_container&amp;quot; data-test=&amp;quot;product-sort-container&amp;quot;&amp;gt;&amp;lt;option value=&amp;quot;az&amp;quot;&amp;gt;Name (A to Z)&amp;lt;/option&amp;gt;&amp;lt;option value=&amp;quot;za&amp;quot;&amp;gt;Name (Z to A)&amp;lt;/option&amp;gt;&amp;lt;option value=&amp;quot;lohi&amp;quot;&amp;gt;Price (low to high)&amp;lt;/option&amp;gt;&amp;lt;option value=&amp;quot;hilo&amp;quot;&amp;gt;Price (high to low)&amp;lt;/option&amp;gt;&amp;lt;/select&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div id=&amp;quot;inventory_container&amp;quot;&amp;gt;&amp;lt;div&amp;gt;&amp;lt;div id=&amp;quot;inventory_container&amp;quot; class=&amp;quot;inventory_container&amp;quot; data-test=&amp;quot;inventory-container&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_list&amp;quot; data-test=&amp;quot;inventory-list&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item&amp;quot; data-test=&amp;quot;inventory-item&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_img&amp;quot;&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot; id=&amp;quot;item_4_img_link&amp;quot; data-test=&amp;quot;item-4-img-link&amp;quot;&amp;gt;&amp;lt;img alt=&amp;quot;Sauce Labs Backpack&amp;quot; class=&amp;quot;inventory_item_img&amp;quot; src=&amp;quot;/static/media/sauce-backpack-1200x1500.0a0b85a385945026062b.jpg&amp;quot; data-test=&amp;quot;inventory-item-sauce-labs-backpack-img&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_description&amp;quot; data-test=&amp;quot;inventory-item-description&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_label&amp;quot;&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot; id=&amp;quot;item_4_title_link&amp;quot; data-test=&amp;quot;item-4-title-link&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_name &amp;quot; data-test=&amp;quot;inventory-item-name&amp;quot;&amp;gt;Sauce Labs Backpack&amp;lt;/div&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_desc&amp;quot; data-test=&amp;quot;inventory-item-desc&amp;quot;&amp;gt;carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;pricebar&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_price&amp;quot; data-test=&amp;quot;inventory-item-price&amp;quot;&amp;gt;$29.99&amp;lt;/div&amp;gt;&amp;lt;button class=&amp;quot;btn btn_primary btn_small btn_inventory &amp;quot; data-test=&amp;quot;add-to-cart-sauce-labs-backpack&amp;quot; id=&amp;quot;add-to-cart-sauce-labs-backpack&amp;quot; name=&amp;quot;add-to-cart-sauce-labs-backpack&amp;quot;&amp;gt;Add to cart&amp;lt;/button&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;inventory_item&amp;quot; data-test=&amp;quot;inventory-item&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_img&amp;quot;&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot; id=&amp;quot;item_0_img_link&amp;quot; data-test=&amp;quot;item-0-img-link&amp;quot;&amp;gt;&amp;lt;img alt=&amp;quot;Sauce Labs Bike Light&amp;quot; class=&amp;quot;inventory_item_img&amp;quot; src=&amp;quot;/static/media/bike-light-1200x1500.37c843b09a7d77409d63.jpg&amp;quot; data-test=&amp;quot;inventory-item-sauce-labs-bike-light-img&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_description&amp;quot; data-test=&amp;quot;inventory-item-description&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_label&amp;quot;&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot; id=&amp;quot;item_0_title_link&amp;quot; data-test=&amp;quot;item-0-title-link&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_name &amp;quot; data-test=&amp;quot;inventory-item-name&amp;quot;&amp;gt;Sauce Labs Bike Light&amp;lt;/div&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_desc&amp;quot; data-test=&amp;quot;inventory-item-desc&amp;quot;&amp;gt;A red light isn\\&amp;#x27;t the desired state in testing but it sure helps when riding your bike at night. Water-resistant with 3 lighting modes, 1 AAA battery included.&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;pricebar&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_price&amp;quot; data-test=&amp;quot;inventory-item-price&amp;quot;&amp;gt;$9.99&amp;lt;/div&amp;gt;&amp;lt;button class=&amp;quot;btn btn_primary btn_small btn_inventory &amp;quot; data-test=&amp;quot;add-to-cart-sauce-labs-bike-light&amp;quot; id=&amp;quot;add-to-cart-sauce-labs-bike-light&amp;quot; name=&amp;quot;add-to-cart-sauce-labs-bike-light&amp;quot;&amp;gt;Add to cart&amp;lt;/button&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;inventory_item&amp;quot; data-test=&amp;quot;inventory-item&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_img&amp;quot;&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot; id=&amp;quot;item_1_img_link&amp;quot; data-test=&amp;quot;item-1-img-link&amp;quot;&amp;gt;&amp;lt;img alt=&amp;quot;Sauce Labs Bolt T-Shirt&amp;quot; class=&amp;quot;inventory_item_img&amp;quot; src=&amp;quot;/static/media/bolt-shirt-1200x1500.c2599ac5f0a35ed5931e.jpg&amp;quot; data-test=&amp;quot;inventory-item-sauce-labs-bolt-t-shirt-img&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_description&amp;quot; data-test=&amp;quot;inventory-item-description&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_label&amp;quot;&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot; id=&amp;quot;item_1_title_link&amp;quot; data-test=&amp;quot;item-1-title-link&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_name &amp;quot; data-test=&amp;quot;inventory-item-name&amp;quot;&amp;gt;Sauce Labs Bolt T-Shirt&amp;lt;/div&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_desc&amp;quot; data-test=&amp;quot;inventory-item-desc&amp;quot;&amp;gt;Get your testing superhero on with the Sauce Labs bolt T-shirt. From American Apparel, 100% ringspun combed cotton, heather gray with red bolt.&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;pricebar&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_price&amp;quot; data-test=&amp;quot;inventory-item-price&amp;quot;&amp;gt;$15.99&amp;lt;/div&amp;gt;&amp;lt;button class=&amp;quot;btn btn_primary btn_small btn_inventory &amp;quot; data-test=&amp;quot;add-to-cart-sauce-labs-bolt-t-shirt&amp;quot; id=&amp;quot;add-to-cart-sauce-labs-bolt-t-shirt&amp;quot; name=&amp;quot;add-to-cart-sauce-labs-bolt-t-shirt&amp;quot;&amp;gt;Add to cart&amp;lt;/button&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;inventory_item&amp;quot; data-test=&amp;quot;inventory-item&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_img&amp;quot;&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot; id=&amp;quot;item_5_img_link&amp;quot; data-test=&amp;quot;item-5-img-link&amp;quot;&amp;gt;&amp;lt;img alt=&amp;quot;Sauce Labs Fleece Jacket&amp;quot; class=&amp;quot;inventory_item_img&amp;quot; src=&amp;quot;/static/media/sauce-pullover-1200x1500.51d7ffaf301e698772c8.jpg&amp;quot; data-test=&amp;quot;inventory-item-sauce-labs-fleece-jacket-img&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_description&amp;quot; data-test=&amp;quot;inventory-item-description&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_label&amp;quot;&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot; id=&amp;quot;item_5_title_link&amp;quot; data-test=&amp;quot;item-5-title-link&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_name &amp;quot; data-test=&amp;quot;inventory-item-name&amp;quot;&amp;gt;Sauce Labs Fleece Jacket&amp;lt;/div&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_desc&amp;quot; data-test=&amp;quot;inventory-item-desc&amp;quot;&amp;gt;It\\&amp;#x27;s not every day that you come across a midweight quarter-zip fleece jacket capable of handling everything from a relaxing day outdoors to a busy day at the office.&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;pricebar&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_price&amp;quot; data-test=&amp;quot;inventory-item-price&amp;quot;&amp;gt;$49.99&amp;lt;/div&amp;gt;&amp;lt;button class=&amp;quot;btn btn_primary btn_small btn_inventory &amp;quot; data-test=&amp;quot;add-to-cart-sauce-labs-fleece-jacket&amp;quot; id=&amp;quot;add-to-cart-sauce-labs-fleece-jacket&amp;quot; name=&amp;quot;add-to-cart-sauce-labs-fleece-jacket&amp;quot;&amp;gt;Add to cart&amp;lt;/button&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;inventory_item&amp;quot; data-test=&amp;quot;inventory-item&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_img&amp;quot;&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot; id=&amp;quot;item_2_img_link&amp;quot; data-test=&amp;quot;item-2-img-link&amp;quot;&amp;gt;&amp;lt;img alt=&amp;quot;Sauce Labs Onesie&amp;quot; class=&amp;quot;inventory_item_img&amp;quot; src=&amp;quot;/static/media/red-onesie-1200x1500.2ec615b271ef4c3bc430.jpg&amp;quot; data-test=&amp;quot;inventory-item-sauce-labs-onesie-img&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_description&amp;quot; data-test=&amp;quot;inventory-item-description&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_label&amp;quot;&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot; id=&amp;quot;item_2_title_link&amp;quot; data-test=&amp;quot;item-2-title-link&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_name &amp;quot; data-test=&amp;quot;inventory-item-name&amp;quot;&amp;gt;Sauce Labs Onesie&amp;lt;/div&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_desc&amp;quot; data-test=&amp;quot;inventory-item-desc&amp;quot;&amp;gt;Rib snap infant onesie for the junior automation engineer in development. Reinforced 3-snap bottom closure, two-needle hemmed sleeved and bottom won\\&amp;#x27;t unravel.&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;pricebar&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_price&amp;quot; data-test=&amp;quot;inventory-item-price&amp;quot;&amp;gt;$7.99&amp;lt;/div&amp;gt;&amp;lt;button class=&amp;quot;btn btn_primary btn_small btn_inventory &amp;quot; data-test=&amp;quot;add-to-cart-sauce-labs-onesie&amp;quot; id=&amp;quot;add-to-cart-sauce-labs-onesie&amp;quot; name=&amp;quot;add-to-cart-sauce-labs-onesie&amp;quot;&amp;gt;Add to cart&amp;lt;/button&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;inventory_item&amp;quot; data-test=&amp;quot;inventory-item&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_img&amp;quot;&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot; id=&amp;quot;item_3_img_link&amp;quot; data-test=&amp;quot;item-3-img-link&amp;quot;&amp;gt;&amp;lt;img alt=&amp;quot;Test.allTheThings() T-Shirt (Red)&amp;quot; class=&amp;quot;inventory_item_img&amp;quot; src=&amp;quot;/static/media/red-tatt-1200x1500.30dadef477804e54fc7b.jpg&amp;quot; data-test=&amp;quot;inventory-item-test.allthethings()-t-shirt-(red)-img&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_description&amp;quot; data-test=&amp;quot;inventory-item-description&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_label&amp;quot;&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot; id=&amp;quot;item_3_title_link&amp;quot; data-test=&amp;quot;item-3-title-link&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_name &amp;quot; data-test=&amp;quot;inventory-item-name&amp;quot;&amp;gt;Test.allTheThings() T-Shirt (Red)&amp;lt;/div&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_desc&amp;quot; data-test=&amp;quot;inventory-item-desc&amp;quot;&amp;gt;This classic Sauce Labs t-shirt is perfect to wear when cozying up to your keyboard to automate a few tests. Super-soft and comfy ringspun combed cotton.&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;pricebar&amp;quot;&amp;gt;&amp;lt;div class=&amp;quot;inventory_item_price&amp;quot; data-test=&amp;quot;inventory-item-price&amp;quot;&amp;gt;$15.99&amp;lt;/div&amp;gt;&amp;lt;button class=&amp;quot;btn btn_primary btn_small btn_inventory &amp;quot; data-test=&amp;quot;add-to-cart-test.allthethings()-t-shirt-(red)&amp;quot; id=&amp;quot;add-to-cart-test.allthethings()-t-shirt-(red)&amp;quot; name=&amp;quot;add-to-cart-test.allthethings()-t-shirt-(red)&amp;quot;&amp;gt;Add to cart&amp;lt;/button&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;footer class=&amp;quot;footer&amp;quot; data-test=&amp;quot;footer&amp;quot;&amp;gt;&amp;lt;ul class=&amp;quot;social&amp;quot;&amp;gt;&amp;lt;li class=&amp;quot;social_twitter&amp;quot;&amp;gt;&amp;lt;a href=&amp;quot;https://twitter.com/saucelabs&amp;quot; target=&amp;quot;_blank&amp;quot; rel=&amp;quot;noreferrer&amp;quot; data-test=&amp;quot;social-twitter&amp;quot;&amp;gt;Twitter&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&amp;lt;li class=&amp;quot;social_facebook&amp;quot;&amp;gt;&amp;lt;a href=&amp;quot;https://www.facebook.com/saucelabs&amp;quot; target=&amp;quot;_blank&amp;quot; rel=&amp;quot;noreferrer&amp;quot; data-test=&amp;quot;social-facebook&amp;quot;&amp;gt;Facebook&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&amp;lt;li class=&amp;quot;social_linkedin&amp;quot;&amp;gt;&amp;lt;a href=&amp;quot;https://www.linkedin.com/company/sauce-labs/&amp;quot; target=&amp;quot;_blank&amp;quot; rel=&amp;quot;noreferrer&amp;quot; data-test=&amp;quot;social-linkedin&amp;quot;&amp;gt;LinkedIn&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&amp;lt;/ul&amp;gt;&amp;lt;div class=&amp;quot;footer_copy&amp;quot; data-test=&amp;quot;footer-copy&amp;quot;&amp;gt;\\xa9 2025 Sauce Labs. All Rights Reserved. Terms of Service | Privacy Policy&amp;lt;/div&amp;gt;&amp;lt;/footer&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&amp;#x27;\n\ntests\\ui\\test_demo_failure.py:50: AssertionError\n\n---------------------------- Captured stderr setup -----------------------------\n2025-12-10 12:13:03,477 - conftest - INFO - Iniciando WebDriver (Chrome)\n\n------------------------------ Captured log setup ------------------------------\nINFO     conftest:conftest.py:34 Iniciando WebDriver (Chrome)\n\n----------------------------- Captured stderr call -----------------------------\n2025-12-10 12:13:14,587 - test_demo_failure - INFO - [DEMO FAIL] Iniciando test intencionalmente fallido de UI.\n2025-12-10 12:13:16,454 - test_demo_failure - INFO - [DEMO FAIL] Buscando texto inexistente en la p\u00e1gina: &amp;#x27;ESTE_TEXTO_NO_EXISTE_EN_LA_PAGINA&amp;#x27;\n\n------------------------------ Captured log call -------------------------------\nINFO     test_demo_failure:test_demo_failure.py:32 [DEMO FAIL] Iniciando test intencionalmente fallido de UI.\nINFO     test_demo_failure:test_demo_failure.py:46 [DEMO FAIL] Buscando texto inexistente en la p\u00e1gina: &amp;#x27;ESTE_TEXTO_NO_EXISTE_EN_LA_PAGINA&amp;#x27;\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-12-10 12:13:19,391 - conftest - ERROR - Test test_demo_ui_intentional_failure fall\u00f3. Screenshot guardado en screenshots\\test_demo_ui_intentional_failure_20251210_121319.png\n2025-12-10 12:13:19,643 - conftest - INFO - Cerrando WebDriver\n\n---------------------------- Captured log teardown -----------------------------\nINFO     conftest:conftest.py:44 Cerrando WebDriver&#34;}], &#34;tests/ui/test_inventory.py::test_add_product_to_cart&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/ui/test_inventory.py::test_add_product_to_cart&#34;, &#34;duration&#34;: &#34;00:00:26&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/ui/test_inventory.py::test_add_product_to_cart&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:26&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stderr setup -----------------------------\n2025-12-10 12:13:25,363 - conftest - INFO - Iniciando WebDriver (Chrome)\n\n------------------------------ Captured log setup ------------------------------\nINFO     conftest:conftest.py:34 Iniciando WebDriver (Chrome)\n\n----------------------------- Captured stderr call -----------------------------\n2025-12-10 12:13:49,077 - test_inventory - INFO - Carrito pas\u00f3 de 0 a 1\n\n------------------------------ Captured log call -------------------------------\nINFO     test_inventory:test_inventory.py:27 Carrito pas\u00f3 de 0 a 1\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-12-10 12:13:49,077 - conftest - INFO - Cerrando WebDriver\n\n---------------------------- Captured log teardown -----------------------------\nINFO     conftest:conftest.py:44 Cerrando WebDriver&#34;}], &#34;tests/ui/test_inventory.py::test_sort_products_high_to_low&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/ui/test_inventory.py::test_sort_products_high_to_low&#34;, &#34;duration&#34;: &#34;00:00:10&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/ui/test_inventory.py::test_sort_products_high_to_low&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:10&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stderr setup -----------------------------\n2025-12-10 12:13:53,528 - conftest - INFO - Iniciando WebDriver (Chrome)\n\n------------------------------ Captured log setup ------------------------------\nINFO     conftest:conftest.py:34 Iniciando WebDriver (Chrome)\n\n----------------------------- Captured stderr call -----------------------------\n2025-12-10 12:14:01,416 - test_inventory - INFO - Precios obtenidos: [49.99, 29.99, 15.99, 15.99, 9.99, 7.99]\n\n------------------------------ Captured log call -------------------------------\nINFO     test_inventory:test_inventory.py:37 Precios obtenidos: [49.99, 29.99, 15.99, 15.99, 9.99, 7.99]\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-12-10 12:14:01,418 - conftest - INFO - Cerrando WebDriver\n\n---------------------------- Captured log teardown -----------------------------\nINFO     conftest:conftest.py:44 Cerrando WebDriver&#34;}], &#34;tests/ui/test_login.py::test_login_success[standard_user]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/ui/test_login.py::test_login_success[standard_user]&#34;, &#34;duration&#34;: &#34;00:00:11&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/ui/test_login.py::test_login_success[standard_user]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:11&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stderr setup -----------------------------\n2025-12-10 12:14:05,777 - conftest - INFO - Iniciando WebDriver (Chrome)\n\n------------------------------ Captured log setup ------------------------------\nINFO     conftest:conftest.py:34 Iniciando WebDriver (Chrome)\n\n----------------------------- Captured stderr call -----------------------------\n2025-12-10 12:14:12,189 - test_login - INFO - [LOGIN OK] Usuario: standard_user\n\n------------------------------ Captured log call -------------------------------\nINFO     test_login:test_login.py:20 [LOGIN OK] Usuario: standard_user\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-12-10 12:14:13,867 - conftest - INFO - Cerrando WebDriver\n\n---------------------------- Captured log teardown -----------------------------\nINFO     conftest:conftest.py:44 Cerrando WebDriver&#34;}], &#34;tests/ui/test_login.py::test_login_success[problem_user]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/ui/test_login.py::test_login_success[problem_user]&#34;, &#34;duration&#34;: &#34;00:00:12&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/ui/test_login.py::test_login_success[problem_user]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:12&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stderr setup -----------------------------\n2025-12-10 12:14:18,750 - conftest - INFO - Iniciando WebDriver (Chrome)\n\n------------------------------ Captured log setup ------------------------------\nINFO     conftest:conftest.py:34 Iniciando WebDriver (Chrome)\n\n----------------------------- Captured stderr call -----------------------------\n2025-12-10 12:14:24,773 - test_login - INFO - [LOGIN OK] Usuario: problem_user\n\n------------------------------ Captured log call -------------------------------\nINFO     test_login:test_login.py:20 [LOGIN OK] Usuario: problem_user\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-12-10 12:14:26,821 - conftest - INFO - Cerrando WebDriver\n\n---------------------------- Captured log teardown -----------------------------\nINFO     conftest:conftest.py:44 Cerrando WebDriver&#34;}], &#34;tests/ui/test_login.py::test_login_invalid_credentials[empty_user]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/ui/test_login.py::test_login_invalid_credentials[empty_user]&#34;, &#34;duration&#34;: &#34;00:00:09&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/ui/test_login.py::test_login_invalid_credentials[empty_user]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:09&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stderr setup -----------------------------\n2025-12-10 12:14:32,351 - conftest - INFO - Iniciando WebDriver (Chrome)\n\n------------------------------ Captured log setup ------------------------------\nINFO     conftest:conftest.py:34 Iniciando WebDriver (Chrome)\n\n----------------------------- Captured stderr call -----------------------------\n2025-12-10 12:14:37,238 - test_login - INFO - [LOGIN NOK] Escenario: Usuario vac\u00edo | username=&amp;#x27;&amp;#x27; password=&amp;#x27;secret_sauce&amp;#x27; | Esperado error que contenga: &amp;#x27;Username is required&amp;#x27;\n2025-12-10 12:14:39,048 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: &amp;#x27;Epic sadface: Username is required&amp;#x27;\n\n------------------------------ Captured log call -------------------------------\nINFO     test_login:test_login.py:48 [LOGIN NOK] Escenario: Usuario vac\u00edo | username=&amp;#x27;&amp;#x27; password=&amp;#x27;secret_sauce&amp;#x27; | Esperado error que contenga: &amp;#x27;Username is required&amp;#x27;\nINFO     test_login:test_login.py:68 [LOGIN NOK] Mensaje mostrado: &amp;#x27;Epic sadface: Username is required&amp;#x27;\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-12-10 12:14:39,048 - conftest - INFO - Cerrando WebDriver\n\n---------------------------- Captured log teardown -----------------------------\nINFO     conftest:conftest.py:44 Cerrando WebDriver&#34;}], &#34;tests/ui/test_login.py::test_login_invalid_credentials[empty_password]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/ui/test_login.py::test_login_invalid_credentials[empty_password]&#34;, &#34;duration&#34;: &#34;00:00:11&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/ui/test_login.py::test_login_invalid_credentials[empty_password]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:11&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stderr setup -----------------------------\n2025-12-10 12:14:43,634 - conftest - INFO - Iniciando WebDriver (Chrome)\n\n------------------------------ Captured log setup ------------------------------\nINFO     conftest:conftest.py:34 Iniciando WebDriver (Chrome)\n\n----------------------------- Captured stderr call -----------------------------\n2025-12-10 12:14:49,159 - test_login - INFO - [LOGIN NOK] Escenario: Password vac\u00eda | username=&amp;#x27;standard_user&amp;#x27; password=&amp;#x27;&amp;#x27; | Esperado error que contenga: &amp;#x27;Password is required&amp;#x27;\n2025-12-10 12:14:51,205 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: &amp;#x27;Epic sadface: Password is required&amp;#x27;\n\n------------------------------ Captured log call -------------------------------\nINFO     test_login:test_login.py:48 [LOGIN NOK] Escenario: Password vac\u00eda | username=&amp;#x27;standard_user&amp;#x27; password=&amp;#x27;&amp;#x27; | Esperado error que contenga: &amp;#x27;Password is required&amp;#x27;\nINFO     test_login:test_login.py:68 [LOGIN NOK] Mensaje mostrado: &amp;#x27;Epic sadface: Password is required&amp;#x27;\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-12-10 12:14:51,218 - conftest - INFO - Cerrando WebDriver\n\n---------------------------- Captured log teardown -----------------------------\nINFO     conftest:conftest.py:44 Cerrando WebDriver&#34;}], &#34;tests/ui/test_login.py::test_login_invalid_credentials[locked_out]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/ui/test_login.py::test_login_invalid_credentials[locked_out]&#34;, &#34;duration&#34;: &#34;00:00:11&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/ui/test_login.py::test_login_invalid_credentials[locked_out]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:11&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stderr setup -----------------------------\n2025-12-10 12:14:56,515 - conftest - INFO - Iniciando WebDriver (Chrome)\n\n------------------------------ Captured log setup ------------------------------\nINFO     conftest:conftest.py:34 Iniciando WebDriver (Chrome)\n\n----------------------------- Captured stderr call -----------------------------\n2025-12-10 12:15:02,654 - test_login - INFO - [LOGIN NOK] Escenario: Usuario bloqueado | username=&amp;#x27;locked_out_user&amp;#x27; password=&amp;#x27;secret_sauce&amp;#x27; | Esperado error que contenga: &amp;#x27;Sorry&amp;#x27;\n2025-12-10 12:15:04,348 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: &amp;#x27;Epic sadface: Sorry, this user has been locked out.&amp;#x27;\n\n------------------------------ Captured log call -------------------------------\nINFO     test_login:test_login.py:48 [LOGIN NOK] Escenario: Usuario bloqueado | username=&amp;#x27;locked_out_user&amp;#x27; password=&amp;#x27;secret_sauce&amp;#x27; | Esperado error que contenga: &amp;#x27;Sorry&amp;#x27;\nINFO     test_login:test_login.py:68 [LOGIN NOK] Mensaje mostrado: &amp;#x27;Epic sadface: Sorry, this user has been locked out.&amp;#x27;\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-12-10 12:15:04,348 - conftest - INFO - Cerrando WebDriver\n\n---------------------------- Captured log teardown -----------------------------\nINFO     conftest:conftest.py:44 Cerrando WebDriver&#34;}], &#34;tests/ui/test_login.py::test_login_invalid_credentials[wrong_password]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/ui/test_login.py::test_login_invalid_credentials[wrong_password]&#34;, &#34;duration&#34;: &#34;00:00:13&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/ui/test_login.py::test_login_invalid_credentials[wrong_password]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:13&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stderr setup -----------------------------\n2025-12-10 12:15:09,396 - conftest - INFO - Iniciando WebDriver (Chrome)\n\n------------------------------ Captured log setup ------------------------------\nINFO     conftest:conftest.py:34 Iniciando WebDriver (Chrome)\n\n----------------------------- Captured stderr call -----------------------------\n2025-12-10 12:15:17,984 - test_login - INFO - [LOGIN NOK] Escenario: Password incorrecta | username=&amp;#x27;standard_user&amp;#x27; password=&amp;#x27;wrong&amp;#x27; | Esperado error que contenga: &amp;#x27;Username and password do not match&amp;#x27;\n2025-12-10 12:15:19,713 - test_login - INFO - [LOGIN NOK] Mensaje mostrado: &amp;#x27;Epic sadface: Username and password do not match any user in this service&amp;#x27;\n\n------------------------------ Captured log call -------------------------------\nINFO     test_login:test_login.py:48 [LOGIN NOK] Escenario: Password incorrecta | username=&amp;#x27;standard_user&amp;#x27; password=&amp;#x27;wrong&amp;#x27; | Esperado error que contenga: &amp;#x27;Username and password do not match&amp;#x27;\nINFO     test_login:test_login.py:68 [LOGIN NOK] Mensaje mostrado: &amp;#x27;Epic sadface: Username and password do not match any user in this service&amp;#x27;\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-12-10 12:15:19,723 - conftest - INFO - Cerrando WebDriver\n\n---------------------------- Captured log teardown -----------------------------\nINFO     conftest:conftest.py:44 Cerrando WebDriver&#34;}]}, &#34;renderCollapsed&#34;: [&#34;passed&#34;], &#34;initialSort&#34;: &#34;result&#34;, &#34;title&#34;: &#34;report.html&#34;}"></div>
+    <script>
+      (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+const { getCollapsedCategory, setCollapsedIds } = require('./storage.js')
+
+class DataManager {
+    setManager(data) {
+        const collapsedCategories = [...getCollapsedCategory(data.renderCollapsed)]
+        const collapsedIds = []
+        const tests = Object.values(data.tests).flat().map((test, index) => {
+            const collapsed = collapsedCategories.includes(test.result.toLowerCase())
+            const id = `test_${index}`
+            if (collapsed) {
+                collapsedIds.push(id)
+            }
+            return {
+                ...test,
+                id,
+                collapsed,
+            }
+        })
+        const dataBlob = { ...data, tests }
+        this.data = { ...dataBlob }
+        this.renderData = { ...dataBlob }
+        setCollapsedIds(collapsedIds)
+    }
+
+    get allData() {
+        return { ...this.data }
+    }
+
+    resetRender() {
+        this.renderData = { ...this.data }
+    }
+
+    setRender(data) {
+        this.renderData.tests = [...data]
+    }
+
+    toggleCollapsedItem(id) {
+        this.renderData.tests = this.renderData.tests.map((test) =>
+            test.id === id ? { ...test, collapsed: !test.collapsed } : test,
+        )
+    }
+
+    set allCollapsed(collapsed) {
+        this.renderData = { ...this.renderData, tests: [...this.renderData.tests.map((test) => (
+            { ...test, collapsed }
+        ))] }
+    }
+
+    get testSubset() {
+        return [...this.renderData.tests]
+    }
+
+    get environment() {
+        return this.renderData.environment
+    }
+
+    get initialSort() {
+        return this.data.initialSort
+    }
+}
+
+module.exports = {
+    manager: new DataManager(),
+}
+
+},{"./storage.js":8}],2:[function(require,module,exports){
+const mediaViewer = require('./mediaviewer.js')
+const templateEnvRow = document.getElementById('template_environment_row')
+const templateResult = document.getElementById('template_results-table__tbody')
+
+function htmlToElements(html) {
+    const temp = document.createElement('template')
+    temp.innerHTML = html
+    return temp.content.childNodes
+}
+
+const find = (selector, elem) => {
+    if (!elem) {
+        elem = document
+    }
+    return elem.querySelector(selector)
+}
+
+const findAll = (selector, elem) => {
+    if (!elem) {
+        elem = document
+    }
+    return [...elem.querySelectorAll(selector)]
+}
+
+const dom = {
+    getStaticRow: (key, value) => {
+        const envRow = templateEnvRow.content.cloneNode(true)
+        const isObj = typeof value === 'object' && value !== null
+        const values = isObj ? Object.keys(value).map((k) => `${k}: ${value[k]}`) : null
+
+        const valuesElement = htmlToElements(
+            values ? `<ul>${values.map((val) => `<li>${val}</li>`).join('')}<ul>` : `<div>${value}</div>`)[0]
+        const td = findAll('td', envRow)
+        td[0].textContent = key
+        td[1].appendChild(valuesElement)
+
+        return envRow
+    },
+    getResultTBody: ({ testId, id, log, extras, resultsTableRow, tableHtml, result, collapsed }) => {
+        const resultBody = templateResult.content.cloneNode(true)
+        resultBody.querySelector('tbody').classList.add(result.toLowerCase())
+        resultBody.querySelector('tbody').id = testId
+        resultBody.querySelector('.collapsible').dataset.id = id
+
+        resultsTableRow.forEach((html) => {
+            const t = document.createElement('template')
+            t.innerHTML = html
+            resultBody.querySelector('.collapsible').appendChild(t.content)
+        })
+
+        if (log) {
+            // Wrap lines starting with "E" with span.error to color those lines red
+            const wrappedLog = log.replace(/^E.*$/gm, (match) => `<span class="error">${match}</span>`)
+            resultBody.querySelector('.log').innerHTML = wrappedLog
+        } else {
+            resultBody.querySelector('.log').remove()
+        }
+
+        if (collapsed) {
+            resultBody.querySelector('.collapsible > td')?.classList.add('collapsed')
+            resultBody.querySelector('.extras-row').classList.add('hidden')
+        } else {
+            resultBody.querySelector('.collapsible > td')?.classList.remove('collapsed')
+        }
+
+        const media = []
+        extras?.forEach(({ name, format_type, content }) => {
+            if (['image', 'video'].includes(format_type)) {
+                media.push({ path: content, name, format_type })
+            }
+
+            if (format_type === 'html') {
+                resultBody.querySelector('.extraHTML').insertAdjacentHTML('beforeend', `<div>${content}</div>`)
+            }
+        })
+        mediaViewer.setup(resultBody, media)
+
+        // Add custom html from the pytest_html_results_table_html hook
+        tableHtml?.forEach((item) => {
+            resultBody.querySelector('td[class="extra"]').insertAdjacentHTML('beforeend', item)
+        })
+
+        return resultBody
+    },
+}
+
+module.exports = {
+    dom,
+    htmlToElements,
+    find,
+    findAll,
+}
+
+},{"./mediaviewer.js":6}],3:[function(require,module,exports){
+const { manager } = require('./datamanager.js')
+const { doSort } = require('./sort.js')
+const storageModule = require('./storage.js')
+
+const getFilteredSubSet = (filter) =>
+    manager.allData.tests.filter(({ result }) => filter.includes(result.toLowerCase()))
+
+const doInitFilter = () => {
+    const currentFilter = storageModule.getVisible()
+    const filteredSubset = getFilteredSubSet(currentFilter)
+    manager.setRender(filteredSubset)
+}
+
+const doFilter = (type, show) => {
+    if (show) {
+        storageModule.showCategory(type)
+    } else {
+        storageModule.hideCategory(type)
+    }
+
+    const currentFilter = storageModule.getVisible()
+    const filteredSubset = getFilteredSubSet(currentFilter)
+    manager.setRender(filteredSubset)
+
+    const sortColumn = storageModule.getSort()
+    doSort(sortColumn, true)
+}
+
+module.exports = {
+    doFilter,
+    doInitFilter,
+}
+
+},{"./datamanager.js":1,"./sort.js":7,"./storage.js":8}],4:[function(require,module,exports){
+const { redraw, bindEvents, renderStatic } = require('./main.js')
+const { doInitFilter } = require('./filter.js')
+const { doInitSort } = require('./sort.js')
+const { manager } = require('./datamanager.js')
+const data = JSON.parse(document.getElementById('data-container').dataset.jsonblob)
+
+function init() {
+    manager.setManager(data)
+    doInitFilter()
+    doInitSort()
+    renderStatic()
+    redraw()
+    bindEvents()
+}
+
+init()
+
+},{"./datamanager.js":1,"./filter.js":3,"./main.js":5,"./sort.js":7}],5:[function(require,module,exports){
+const { dom, find, findAll } = require('./dom.js')
+const { manager } = require('./datamanager.js')
+const { doSort } = require('./sort.js')
+const { doFilter } = require('./filter.js')
+const {
+    getVisible,
+    getCollapsedIds,
+    setCollapsedIds,
+    getSort,
+    getSortDirection,
+    possibleFilters,
+} = require('./storage.js')
+
+const removeChildren = (node) => {
+    while (node.firstChild) {
+        node.removeChild(node.firstChild)
+    }
+}
+
+const renderStatic = () => {
+    const renderEnvironmentTable = () => {
+        const environment = manager.environment
+        const rows = Object.keys(environment).map((key) => dom.getStaticRow(key, environment[key]))
+        const table = document.getElementById('environment')
+        removeChildren(table)
+        rows.forEach((row) => table.appendChild(row))
+    }
+    renderEnvironmentTable()
+}
+
+const addItemToggleListener = (elem) => {
+    elem.addEventListener('click', ({ target }) => {
+        const id = target.parentElement.dataset.id
+        manager.toggleCollapsedItem(id)
+
+        const collapsedIds = getCollapsedIds()
+        if (collapsedIds.includes(id)) {
+            const updated = collapsedIds.filter((item) => item !== id)
+            setCollapsedIds(updated)
+        } else {
+            collapsedIds.push(id)
+            setCollapsedIds(collapsedIds)
+        }
+        redraw()
+    })
+}
+
+const renderContent = (tests) => {
+    const sortAttr = getSort(manager.initialSort)
+    const sortAsc = JSON.parse(getSortDirection())
+    const rows = tests.map(dom.getResultTBody)
+    const table = document.getElementById('results-table')
+    const tableHeader = document.getElementById('results-table-head')
+
+    const newTable = document.createElement('table')
+    newTable.id = 'results-table'
+
+    // remove all sorting classes and set the relevant
+    findAll('.sortable', tableHeader).forEach((elem) => elem.classList.remove('asc', 'desc'))
+    tableHeader.querySelector(`.sortable[data-column-type="${sortAttr}"]`)?.classList.add(sortAsc ? 'desc' : 'asc')
+    newTable.appendChild(tableHeader)
+
+    if (!rows.length) {
+        const emptyTable = document.getElementById('template_results-table__body--empty').content.cloneNode(true)
+        newTable.appendChild(emptyTable)
+    } else {
+        rows.forEach((row) => {
+            if (!!row) {
+                findAll('.collapsible td:not(.col-links', row).forEach(addItemToggleListener)
+                find('.logexpander', row).addEventListener('click',
+                    (evt) => evt.target.parentNode.classList.toggle('expanded'),
+                )
+                newTable.appendChild(row)
+            }
+        })
+    }
+
+    table.replaceWith(newTable)
+}
+
+const renderDerived = () => {
+    const currentFilter = getVisible()
+    possibleFilters.forEach((result) => {
+        const input = document.querySelector(`input[data-test-result="${result}"]`)
+        input.checked = currentFilter.includes(result)
+    })
+}
+
+const bindEvents = () => {
+    const filterColumn = (evt) => {
+        const { target: element } = evt
+        const { testResult } = element.dataset
+
+        doFilter(testResult, element.checked)
+        const collapsedIds = getCollapsedIds()
+        const updated = manager.renderData.tests.map((test) => {
+            return {
+                ...test,
+                collapsed: collapsedIds.includes(test.id),
+            }
+        })
+        manager.setRender(updated)
+        redraw()
+    }
+
+    const header = document.getElementById('environment-header')
+    header.addEventListener('click', () => {
+        const table = document.getElementById('environment')
+        table.classList.toggle('hidden')
+        header.classList.toggle('collapsed')
+    })
+
+    findAll('input[name="filter_checkbox"]').forEach((elem) => {
+        elem.addEventListener('click', filterColumn)
+    })
+
+    findAll('.sortable').forEach((elem) => {
+        elem.addEventListener('click', (evt) => {
+            const { target: element } = evt
+            const { columnType } = element.dataset
+            doSort(columnType)
+            redraw()
+        })
+    })
+
+    document.getElementById('show_all_details').addEventListener('click', () => {
+        manager.allCollapsed = false
+        setCollapsedIds([])
+        redraw()
+    })
+    document.getElementById('hide_all_details').addEventListener('click', () => {
+        manager.allCollapsed = true
+        const allIds = manager.renderData.tests.map((test) => test.id)
+        setCollapsedIds(allIds)
+        redraw()
+    })
+}
+
+const redraw = () => {
+    const { testSubset } = manager
+
+    renderContent(testSubset)
+    renderDerived()
+}
+
+module.exports = {
+    redraw,
+    bindEvents,
+    renderStatic,
+}
+
+},{"./datamanager.js":1,"./dom.js":2,"./filter.js":3,"./sort.js":7,"./storage.js":8}],6:[function(require,module,exports){
+class MediaViewer {
+    constructor(assets) {
+        this.assets = assets
+        this.index = 0
+    }
+
+    nextActive() {
+        this.index = this.index === this.assets.length - 1 ? 0 : this.index + 1
+        return [this.activeFile, this.index]
+    }
+
+    prevActive() {
+        this.index = this.index === 0 ? this.assets.length - 1 : this.index -1
+        return [this.activeFile, this.index]
+    }
+
+    get currentIndex() {
+        return this.index
+    }
+
+    get activeFile() {
+        return this.assets[this.index]
+    }
+}
+
+
+const setup = (resultBody, assets) => {
+    if (!assets.length) {
+        resultBody.querySelector('.media').classList.add('hidden')
+        return
+    }
+
+    const mediaViewer = new MediaViewer(assets)
+    const container = resultBody.querySelector('.media-container')
+    const leftArrow = resultBody.querySelector('.media-container__nav--left')
+    const rightArrow = resultBody.querySelector('.media-container__nav--right')
+    const mediaName = resultBody.querySelector('.media__name')
+    const counter = resultBody.querySelector('.media__counter')
+    const imageEl = resultBody.querySelector('img')
+    const sourceEl = resultBody.querySelector('source')
+    const videoEl = resultBody.querySelector('video')
+
+    const setImg = (media, index) => {
+        if (media?.format_type === 'image') {
+            imageEl.src = media.path
+
+            imageEl.classList.remove('hidden')
+            videoEl.classList.add('hidden')
+        } else if (media?.format_type === 'video') {
+            sourceEl.src = media.path
+
+            videoEl.classList.remove('hidden')
+            imageEl.classList.add('hidden')
+        }
+
+        mediaName.innerText = media?.name
+        counter.innerText = `${index + 1} / ${assets.length}`
+    }
+    setImg(mediaViewer.activeFile, mediaViewer.currentIndex)
+
+    const moveLeft = () => {
+        const [media, index] = mediaViewer.prevActive()
+        setImg(media, index)
+    }
+    const doRight = () => {
+        const [media, index] = mediaViewer.nextActive()
+        setImg(media, index)
+    }
+    const openImg = () => {
+        window.open(mediaViewer.activeFile.path, '_blank')
+    }
+    if (assets.length === 1) {
+        container.classList.add('media-container--fullscreen')
+    } else {
+        leftArrow.addEventListener('click', moveLeft)
+        rightArrow.addEventListener('click', doRight)
+    }
+    imageEl.addEventListener('click', openImg)
+}
+
+module.exports = {
+    setup,
+}
+
+},{}],7:[function(require,module,exports){
+const { manager } = require('./datamanager.js')
+const storageModule = require('./storage.js')
+
+const genericSort = (list, key, ascending, customOrder) => {
+    let sorted
+    if (customOrder) {
+        sorted = list.sort((a, b) => {
+            const aValue = a.result.toLowerCase()
+            const bValue = b.result.toLowerCase()
+
+            const aIndex = customOrder.findIndex((item) => item.toLowerCase() === aValue)
+            const bIndex = customOrder.findIndex((item) => item.toLowerCase() === bValue)
+
+            // Compare the indices to determine the sort order
+            return aIndex - bIndex
+        })
+    } else {
+        sorted = list.sort((a, b) => a[key] === b[key] ? 0 : a[key] > b[key] ? 1 : -1)
+    }
+
+    if (ascending) {
+        sorted.reverse()
+    }
+    return sorted
+}
+
+const durationSort = (list, ascending) => {
+    const parseDuration = (duration) => {
+        if (duration.includes(':')) {
+            // If it's in the format "HH:mm:ss"
+            const [hours, minutes, seconds] = duration.split(':').map(Number)
+            return (hours * 3600 + minutes * 60 + seconds) * 1000
+        } else {
+            // If it's in the format "nnn ms"
+            return parseInt(duration)
+        }
+    }
+    const sorted = list.sort((a, b) => parseDuration(a['duration']) - parseDuration(b['duration']))
+    if (ascending) {
+        sorted.reverse()
+    }
+    return sorted
+}
+
+const doInitSort = () => {
+    const type = storageModule.getSort(manager.initialSort)
+    const ascending = storageModule.getSortDirection()
+    const list = manager.testSubset
+    const initialOrder = ['Error', 'Failed', 'Rerun', 'XFailed', 'XPassed', 'Skipped', 'Passed']
+
+    storageModule.setSort(type)
+    storageModule.setSortDirection(ascending)
+
+    if (type?.toLowerCase() === 'original') {
+        manager.setRender(list)
+    } else {
+        let sortedList
+        switch (type) {
+        case 'duration':
+            sortedList = durationSort(list, ascending)
+            break
+        case 'result':
+            sortedList = genericSort(list, type, ascending, initialOrder)
+            break
+        default:
+            sortedList = genericSort(list, type, ascending)
+            break
+        }
+        manager.setRender(sortedList)
+    }
+}
+
+const doSort = (type, skipDirection) => {
+    const newSortType = storageModule.getSort(manager.initialSort) !== type
+    const currentAsc = storageModule.getSortDirection()
+    let ascending
+    if (skipDirection) {
+        ascending = currentAsc
+    } else {
+        ascending = newSortType ? false : !currentAsc
+    }
+    storageModule.setSort(type)
+    storageModule.setSortDirection(ascending)
+
+    const list = manager.testSubset
+    const sortedList = type === 'duration' ? durationSort(list, ascending) : genericSort(list, type, ascending)
+    manager.setRender(sortedList)
+}
+
+module.exports = {
+    doInitSort,
+    doSort,
+}
+
+},{"./datamanager.js":1,"./storage.js":8}],8:[function(require,module,exports){
+const possibleFilters = [
+    'passed',
+    'skipped',
+    'failed',
+    'error',
+    'xfailed',
+    'xpassed',
+    'rerun',
+]
+
+const getVisible = () => {
+    const url = new URL(window.location.href)
+    const settings = new URLSearchParams(url.search).get('visible')
+    const lower = (item) => {
+        const lowerItem = item.toLowerCase()
+        if (possibleFilters.includes(lowerItem)) {
+            return lowerItem
+        }
+        return null
+    }
+    return settings === null ?
+        possibleFilters :
+        [...new Set(settings?.split(',').map(lower).filter((item) => item))]
+}
+
+const hideCategory = (categoryToHide) => {
+    const url = new URL(window.location.href)
+    const visibleParams = new URLSearchParams(url.search).get('visible')
+    const currentVisible = visibleParams ? visibleParams.split(',') : [...possibleFilters]
+    const settings = [...new Set(currentVisible)].filter((f) => f !== categoryToHide).join(',')
+
+    url.searchParams.set('visible', settings)
+    window.history.pushState({}, null, unescape(url.href))
+}
+
+const showCategory = (categoryToShow) => {
+    if (typeof window === 'undefined') {
+        return
+    }
+    const url = new URL(window.location.href)
+    const currentVisible = new URLSearchParams(url.search).get('visible')?.split(',').filter(Boolean) ||
+        [...possibleFilters]
+    const settings = [...new Set([categoryToShow, ...currentVisible])]
+    const noFilter = possibleFilters.length === settings.length || !settings.length
+
+    noFilter ? url.searchParams.delete('visible') : url.searchParams.set('visible', settings.join(','))
+    window.history.pushState({}, null, unescape(url.href))
+}
+
+const getSort = (initialSort) => {
+    const url = new URL(window.location.href)
+    let sort = new URLSearchParams(url.search).get('sort')
+    if (!sort) {
+        sort = initialSort || 'result'
+    }
+    return sort
+}
+
+const setSort = (type) => {
+    const url = new URL(window.location.href)
+    url.searchParams.set('sort', type)
+    window.history.pushState({}, null, unescape(url.href))
+}
+
+const getCollapsedCategory = (renderCollapsed) => {
+    let categories
+    if (typeof window !== 'undefined') {
+        const url = new URL(window.location.href)
+        const collapsedItems = new URLSearchParams(url.search).get('collapsed')
+        switch (true) {
+        case !renderCollapsed && collapsedItems === null:
+            categories = ['passed']
+            break
+        case collapsedItems?.length === 0 || /^["']{2}$/.test(collapsedItems):
+            categories = []
+            break
+        case /^all$/.test(collapsedItems) || collapsedItems === null && /^all$/.test(renderCollapsed):
+            categories = [...possibleFilters]
+            break
+        default:
+            categories = collapsedItems?.split(',').map((item) => item.toLowerCase()) || renderCollapsed
+            break
+        }
+    } else {
+        categories = []
+    }
+    return categories
+}
+
+const getSortDirection = () => JSON.parse(sessionStorage.getItem('sortAsc')) || false
+const setSortDirection = (ascending) => sessionStorage.setItem('sortAsc', ascending)
+
+const getCollapsedIds = () => JSON.parse(sessionStorage.getItem('collapsedIds')) || []
+const setCollapsedIds = (list) => sessionStorage.setItem('collapsedIds', JSON.stringify(list))
+
+module.exports = {
+    getVisible,
+    hideCategory,
+    showCategory,
+    getCollapsedIds,
+    setCollapsedIds,
+    getSort,
+    setSort,
+    getSortDirection,
+    setSortDirection,
+    getCollapsedCategory,
+    possibleFilters,
+}
+
+},{}]},{},[4]);
+    </script>
+  </footer>
+</html>

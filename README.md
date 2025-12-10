@@ -23,12 +23,15 @@ sauce-automation/
 ├── pages/ (POM)
 
 ├── tests/
+
 │   ├── ui/
+
 │   └── api/
 
 ├── utils/
 
 ├── resources/
+
 │   └── test_data/
 
 ├── screenshots/
@@ -53,17 +56,7 @@ pip install -r requirements.txt
 
 ## ▶️ Ejecución de Pruebas
 ```
-pytest
-```
-
-Con reporte HTML:
-```
-pytest --html=reports/report.html --self-contained-html
-```
-
-Reporte ejecutivo:
-```
-python utils/generate_summary_html.py
+python run_test.py
 ```
 
 ## 🔍 Tipos de Pruebas
@@ -115,3 +108,8 @@ Incluye:
 **Juan Lozano**  
 Proyecto Final – Automatización de Pruebas
 
+### Agradecimientos 🙏 
+
+Profesor: ***José Montezuma*** 
+
+Mentora: ***Valentina Lembo** 
