@@ -14,6 +14,6 @@ test_files = [
 ]
 
 # Argumentos para ejecutar las pruebas: archivos + reporte HTML
-pytest_args = test_files + ["--html=report.html","--self-contained-html","-v"]
+pytest_args = test_files + ["--html=reports/report.html","--self-contained-html","-v"]
 pytest.main(pytest_args)
 generate_html.generate_html_from_junit ("reports/junit_results.xml", "reports/resumen_casos.html")
